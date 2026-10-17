@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Mi panel | VetCenter</title>
+
+    <!-- Bootstrap 5.3 -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+            rel="stylesheet">
+
+    <!-- Estilos VetCenter -->
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <style>
+        /* ======================================
+           ESTILOS DEL PANEL DEL CLIENTE
+           ====================================== */
+
+        .client-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .client-brand-icon {
+            width: 44px;
+            height: 44px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 14px;
+            background: rgba(255,255,255,.12);
+            color: #a5f3df;
+
+            font-size: 23px;
+        }
+
+        .client-brand-name {
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: -.5px;
+        }
+
+        .client-nav-label {
+            color: #92aeb4;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin: 6px 12px;
+        }
+
+        .client-sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .client-sidebar-nav a i {
+            width: 20px;
+            font-size: 18px;
+        }
+
+        .client-sidebar-nav a.active {
+            background: #1d4650;
+            color: #ffffff;
+        }
+
+        .client-page-subtitle {
+            color: #71818a;
+            font-size: 14px;
+        }
+
+        .client-stat-card {
+            min-height: 150px;
+            transition: transform .2s ease,
+            box-shadow .2s ease;
+        }
+
+        .client-stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(20,55,60,.08);
+        }
+
+        .client-stat-icon {
+            width: 48px;
+            height: 48px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 14px;
+            background: #e9f7f2;
+            color: #087f72;
+
+            font-size: 22px;
+        }
+
+        .client-stat-icon.blue {
+            background: #eaf2ff;
+            color: #3874bd;
+        }
+
+        .client-section-heading {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .client-section-heading > i {
+            color: #087f72;
+            font-size: 22px;
+        }
+
+        .client-table-card {
+            overflow: hidden;
+        }
+
+        .client-table-card .table {
+            margin-bottom: 0;
+            white-space: nowrap;
+        }
+
+        .client-table-card thead th {
+            background: #f7faf9;
+            padding: 15px 16px;
+            border-bottom: 1px solid #e5edef;
+        }
+
+        .client-table-card tbody td {
+            padding: 15px 16px;
+            border-color: #edf2f3;
+            font-size: 13px;
+        }
+
+        .client-table-card tbody tr:hover {
+            background: #f9fcfb;
+        }
+
+        .client-table-card .table-responsive {
+            border-radius: 0;
+        }
+
+        .client-form-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 20px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #e5edef;
+        }
+
+        .client-form-icon {
+            width: 46px;
+            height: 46px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 14px;
+            background: #e9f7f2;
+            color: #087f72;
+
+            font-size: 22px;
+        }
+
+        .client-welcome-icon {
+            font-size: 85px;
+            opacity: .25;
+        }
+
+        .client-empty-state {
+            padding: 36px 20px;
+            text-align: center;
+            color: #71818a;
+        }
+
+        @media (max-width: 768px) {
+            .client-stat-card {
+                min-height: 135px;
+            }
+
+            .client-welcome-icon {
+                display: none;
+            }
+
+            .client-table-card {
+                padding: 0;
+            }
+
+            .client-section-heading h2 {
+                font-size: 19px;
+            }
+        }
+
+        /* Registro de mascotas */
+        .pet-register-modal .modal-content {
+            border: 0;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 24px 80px rgba(14, 46, 51, .18);
+        }
+        .pet-register-modal .modal-header {
+            padding: 25px 28px 16px;
+            border-bottom: 1px solid #edf2f3;
+        }
+        .pet-register-modal .modal-body { padding: 24px 28px 28px; }
+        .pet-register-modal .modal-footer {
+            border-top: 1px solid #edf2f3;
+            padding: 16px 28px 24px;
+        }
+        .pet-register-modal .pet-modal-icon {
+            display: grid;
+            place-items: center;
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: #e9f7f2;
+            color: #087f72;
+            font-size: 22px;
+        }
+        .pet-register-modal .form-label { font-weight: 600; }
+
+        /* Navegación: mostrar únicamente el apartado seleccionado */
+        .dashboard-main > section.vet-vista:not(.vet-vista-activa) {
+            display: none !important;
+        }
+    </style>
+
+</head>
+
+<body class="dashboard-body">
+
+<div class="dashboard-layout">
+
+    <!-- ======================================
+         MENÚ LATERAL
+         ====================================== -->
+
+    <aside class="sidebar">
+
+        <!-- MARCA -->
+
+        <div class="client-brand">
+
+            <div class="client-brand-icon">
+                <img
+                src="/images/Logo_VetCenter.png"
+                alt="Logo VetCenter"
+                class="vetcenter-logo vetcenter-logo-sidebar"
+                >
+            </div>
+
+            <div>
+
+                <div class="client-brand-name">
+                    VetCenter
+                </div>
+
+                <div class="small text-white-50">
+                    Mi cuenta
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="client-nav-label">
+            Menú principal
+        </div>
+
+        <!-- NAVEGACIÓN -->
+
+        <nav class="sidebar-nav client-sidebar-nav"
+             aria-label="Navegación del cliente">
+
+            <a href="#inicio" class="active">
+                <i class="bi bi-grid-1x2"></i>
+                <span>Inicio</span>
+            </a>
+
+            <a href="#mascotas">
+                <i class="bi bi-heart"></i>
+                <span>Mis mascotas</span>
+            </a>
+
+            <a href="#citas">
+                <i class="bi bi-calendar-check"></i>
+                <span>Mis citas</span>
+            </a>
+
+            <a href="#reservar">
+                <i class="bi bi-calendar-plus"></i>
+                <span>Reservar cita</span>
+            </a>
+
+            <a href="/tienda.html">
+                <i class="bi bi-bag-heart"></i>
+                <span>Tienda para mascotas</span>
+            </a>
+
+        </nav>
+
+        <!-- CERRAR SESIÓN -->
+
+        <div class="mt-auto">
+
+            <div class="border-top border-secondary
+                        border-opacity-25 pt-3">
+
+                <button
+                        type="button"
+                        id="logoutButton"
+                        class="btn btn-outline-light w-100">
+
+                    <i class="bi bi-box-arrow-right me-2"></i>
+                    Cerrar sesión
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+    <!-- ======================================
+         CONTENIDO PRINCIPAL
+         ====================================== -->
+
+    <main class="dashboard-main">
+
+        <!-- ENCABEZADO -->
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <p class="client-page-subtitle mb-2">
+
+                    <i class="bi bi-house-door me-1"></i>
+                    VetCenter / Mi cuenta
+
+                </p>
+
+                <h1 id="bienvenida">
+                    Bienvenido a VetCenter
+                </h1>
+
+                <p class="client-page-subtitle mt-2 mb-0">
+                    Cuida y organiza la salud de tus mascotas.
+                </p>
+
+            </div>
+
+            <button type="button" id="abrirPerfilButton"
+                    class="user-avatar border-0"
+                    data-bs-toggle="modal" data-bs-target="#perfilModal"
+                    aria-label="Abrir mi perfil" title="Mi perfil"
+                    style="cursor:pointer;">
+                <i class="bi bi-person-heart" id="iconoPerfil"></i>
+                <img id="avatarPerfil" alt="Foto de perfil" class="d-none"
+                     style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            </button>
+
+        </header>
+
+        <!-- MENSAJES -->
+
+        <div
+                id="mensaje"
+                class="alert d-none"
+                role="alert"
+                aria-live="polite">
+        </div>
+
+        <!-- ==================================
+             INICIO
+             ================================== -->
+
+        <section id="inicio" class="mb-5 vet-vista vet-vista-activa">
+
+            <!-- BIENVENIDA -->
+
+            <div class="welcome-banner">
+
+                <div>
+
+                    <div class="mb-3">
+
+                        <span class="badge
+                                     bg-white
+                                     text-success
+                                     rounded-pill
+                                     px-3 py-2">
+
+                            <i class="bi bi-heart-fill me-1"></i>
+                            Cuidado veterinario
+
+                        </span>
+
+                    </div>
+
+                    <h2>
+                        El bienestar de tu mascota
+                        es nuestra prioridad
+                    </h2>
+
+                    <p>
+                        Gestiona tus mascotas, consulta
+                        sus citas y reserva sus próximas
+                        visitas veterinarias.
+                    </p>
+
+                    <a
+                            href="#reservar"
+                            class="btn btn-light fw-semibold">
+
+                        <i class="bi bi-calendar-plus me-2"></i>
+                        Reservar una cita
+
+                    </a>
+
+                </div>
+
+                <div class="client-welcome-icon"
+                     aria-hidden="true">
+
+                    <i class="bi bi-heart-pulse"></i>
+
+                </div>
+
+            </div>
+
+            <!-- ESTADÍSTICAS -->
+
+            <div class="row g-3 mt-3">
+
+                <!-- MASCOTAS -->
+
+                <div class="col-md-6">
+
+                    <div class="stat-card client-stat-card">
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-center">
+
+                            <span>Mis mascotas</span>
+
+                            <div class="client-stat-icon">
+                                <i class="bi bi-heart"></i>
+                            </div>
+
+                        </div>
+
+                        <strong id="totalMascotas">0</strong>
+
+                        <small class="text-muted">
+                            Mascotas vinculadas a mi cuenta
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <!-- CITAS -->
+
+                <div class="col-md-6">
+
+                    <div class="stat-card client-stat-card">
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-center">
+
+                            <span>Mis citas</span>
+
+                            <div class="client-stat-icon blue">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+
+                        </div>
+
+                        <strong id="totalCitas">0</strong>
+
+                        <small class="text-muted">
+                            Citas veterinarias registradas
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ==================================
+             MIS MASCOTAS
+             ================================== -->
+
+        <section id="mascotas" class="mb-5 vet-vista">
+
+            <div class="d-flex
+                        justify-content-between
+                        align-items-center
+                        flex-wrap gap-3 mb-3">
+
+                <div class="client-section-heading">
+
+                    <i class="bi bi-heart"></i>
+
+                    <h2 class="section-title mb-0">
+                        Mis mascotas
+                    </h2>
+
+                </div>
+
+                <button type="button"
+                        id="nuevaMascotaButton"
+                        class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#mascotaModal">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Registrar mascota
+                </button>
+
+            </div>
+
+            <p class="text-muted small mb-3">
+                Aquí encontrarás las mascotas
+                asociadas a tu cuenta.
+            </p>
+
+            <!-- Se conserva el ID para dashboard.js -->
+
+            <div id="listaMascotas" class="row g-3"></div>
+
+        </section>
+
+        <!-- ==================================
+             MIS CITAS
+             ================================== -->
+
+        <section id="citas" class="mb-5 vet-vista">
+
+            <div class="client-section-heading mb-3">
+
+                <i class="bi bi-calendar-check"></i>
+
+                <h2 class="section-title mb-0">
+                    Mis citas veterinarias
+                </h2>
+
+            </div>
+
+            <div class="content-card client-table-card">
+
+                <div class="mb-3">
+
+                    <h3 class="h6 fw-bold mb-1">
+                        Historial de citas
+                    </h3>
+
+                    <p class="text-muted small mb-0">
+                        Consulta las fechas, motivos
+                        y estados de tus reservas.
+                    </p>
+
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table align-middle">
+
+                        <thead>
+                        <tr>
+                            <th scope="col">Mascota</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Motivo</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="tablaCitas"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ==================================
+             RESERVAR CITA
+             ================================== -->
+
+        <section id="reservar" class="mb-5 vet-vista">
+
+            <div class="client-section-heading mb-3">
+
+                <i class="bi bi-calendar-plus"></i>
+
+                <h2 class="section-title mb-0">
+                    Reservar nueva cita
+                </h2>
+
+            </div>
+
+            <div class="content-card">
+
+                <!-- ENCABEZADO DEL FORMULARIO -->
+
+                <div class="client-form-header">
+
+                    <div class="client-form-icon">
+                        <i class="bi bi-calendar2-plus"></i>
+                    </div>
+
+                    <div>
+
+                        <h3 class="h6 fw-bold mb-1">
+                            Solicitar atención veterinaria
+                        </h3>
+
+                        <p class="text-muted small mb-0">
+                            Completa los datos para registrar
+                            una nueva cita.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- FORMULARIO -->
+
+                <form id="citaForm">
+
+                    <div class="row g-3">
+
+                        <!-- MASCOTA -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                    for="mascotaId"
+                                    class="form-label">
+                                Mascota
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-heart"></i>
+                                </span>
+
+                                <select
+                                        id="mascotaId"
+                                        name="mascotaId"
+                                        class="form-select"
+                                        required>
+
+                                    <option value="">
+                                        Selecciona una mascota
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <!-- FECHA -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                    for="fecha"
+                                    class="form-label">
+                                Fecha de la cita
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-calendar3"></i>
+                                </span>
+
+                                <input
+                                        type="date"
+                                        id="fecha"
+                                        name="fecha"
+                                        class="form-control"
+                                        required>
+
+                            </div>
+
+                        </div>
+
+                        <!-- HORA -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                    for="hora"
+                                    class="form-label">
+                                Hora de atención
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-clock"></i>
+                                </span>
+
+                                <input
+                                        type="time"
+                                        id="hora"
+                                        name="hora"
+                                        class="form-control"
+                                        required>
+
+                            </div>
+
+                        </div>
+
+                        <!-- SELECTOR VISUAL DE HORARIOS -->
+
+                        <div class="col-12">
+
+                            <div class="border rounded-4 p-3 p-md-4 bg-light">
+
+                                <div class="d-flex justify-content-between
+                                           align-items-center flex-wrap gap-2 mb-3">
+
+                                    <div>
+                                        <h4 class="h6 fw-bold mb-1">
+                                            <i class="bi bi-clock-history me-2"></i>
+                                            Horarios disponibles
+                                        </h4>
+
+                                        <p class="text-muted small mb-0">
+                                            Selecciona una fecha para consultar
+                                            los horarios de atención.
+                                        </p>
+                                    </div>
+
+                                    <span class="badge text-bg-light border">
+                                            Atención 24 horas
+                                    </span>
+
+                                </div>
+
+                                <!-- ESTADO DE LA CONSULTA -->
+                                <div id="horariosMensaje"
+                                     class="small text-muted mb-3"
+                                     role="status"
+                                     aria-live="polite">
+                                    Selecciona una fecha para ver los horarios.
+                                </div>
+
+                                <!-- AQUÍ SE GENERARÁN LOS BOTONES -->
+                                <div id="horariosDisponibles"
+                                     class="d-flex flex-wrap gap-2">
+                                </div>
+
+                                <!-- LEYENDA -->
+                                <div class="d-flex flex-wrap gap-3 mt-3 small">
+
+                                    <span>
+                                       <i class="bi bi-circle-fill text-success me-1"></i>
+                                       Disponible
+                                    </span>
+
+                                    <span>
+                                       <i class="bi bi-circle-fill text-danger me-1"></i>
+                                       Ocupado
+                                    </span>
+
+                                    <span>
+                                       <i class="bi bi-circle-fill text-primary me-1"></i>
+                                       Seleccionado
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- MOTIVO -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                    for="motivo"
+                                    class="form-label">
+                                Motivo de la consulta
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-clipboard2-pulse"></i>
+                                </span>
+
+                                <input
+                                        type="text"
+                                        id="motivo"
+                                        name="motivo"
+                                        class="form-control"
+                                        maxlength="250"
+                                        placeholder="Ej. Consulta general"
+                                        required>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- NOTA -->
+
+                    <div class="alert alert-info mt-4 mb-0">
+
+                        <i class="bi bi-info-circle me-2"></i>
+
+                        Selecciona la mascota, fecha y hora
+                        en la que deseas solicitar atención.
+                        Podrás consultar el estado de tu cita
+                        en la sección Mis citas.
+
+                    </div>
+
+                    <!-- BOTÓN -->
+
+                    <div class="d-flex justify-content-end mt-4">
+
+                        <button
+                                type="submit"
+                                id="reservarButton"
+                                class="btn btn-primary px-4">
+
+                            <i class="bi bi-calendar-check me-2"></i>
+                            Confirmar reserva
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- ======================================
+     MODAL: REGISTRAR MASCOTA
+     ====================================== -->
+<div class="modal fade pet-register-modal"
+     id="mascotaModal"
+     tabindex="-1"
+     aria-labelledby="mascotaModalTitulo"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="pet-modal-icon">
+                        <i class="bi bi-heart-pulse"></i>
+                    </div>
+                    <div>
+                        <h2 class="modal-title fs-5 fw-bold" id="mascotaModalTitulo">
+                            Registrar mascota
+                        </h2>
+                        <p class="text-muted small mb-0">
+                            Agrega una mascota a tu cuenta VetCenter.
+                        </p>
+                    </div>
+                </div>
+                <button type="button" class="btn-close ms-2"
+                        data-bs-dismiss="modal"
+                        aria-label="Cerrar"></button>
+            </div>
+
+            <form id="mascotaForm">
+                <div class="modal-body">
+                    <div id="mascotaModalMensaje"
+                         class="alert alert-danger d-none"
+                         role="alert" aria-live="polite"></div>
+
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="mascotaNombre" class="form-label">
+                                Nombre de la mascota <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" id="mascotaNombre" name="nombre"
+                                   class="form-control" maxlength="100"
+                                   placeholder="Ej. Max" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="mascotaEspecie" class="form-label">
+                                Especie <span class="text-danger">*</span>
+                            </label>
+                            <select id="mascotaEspecie" name="especie"
+                                    class="form-select" required>
+                                <option value="">Selecciona una especie</option>
+                                <option value="Perro">Perro</option>
+                                <option value="Gato">Gato</option>
+                                <option value="Ave">Ave</option>
+                                <option value="Conejo">Conejo</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="mascotaSexo" class="form-label">Sexo</label>
+                            <select id="mascotaSexo" name="sexo" class="form-select">
+                                <option value="">Selecciona el sexo</option>
+                                <option value="Macho">Macho</option>
+                                <option value="Hembra">Hembra</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label for="mascotaRaza" class="form-label">Raza</label>
+                            <input type="text" id="mascotaRaza" name="raza"
+                                   class="form-control" maxlength="100"
+                                   placeholder="Ej. Labrador o mestizo">
+                        </div>
+                    </div>
+                    <p class="text-muted small mt-3 mb-0">
+                        <i class="bi bi-shield-check me-1"></i>
+                        La mascota se vinculará automáticamente a tu cuenta.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="guardarMascotaButton"
+                            class="btn btn-primary">
+                        <i class="bi bi-check-circle me-2"></i>
+                        Registrar mascota
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- ==========================================
+     MODAL: CONFIRMAR ELIMINACIÓN DE MASCOTA
+     ========================================== -->
+
+<div
+        class="modal fade pet-delete-modal"
+        id="eliminarMascotaModal"
+        tabindex="-1"
+        aria-labelledby="eliminarMascotaTitulo"
+        aria-describedby="eliminarMascotaDescripcion"
+        aria-hidden="true"
+        data-bs-backdrop="static">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+                <!-- ICONO DE ADVERTENCIA -->
+                <div class="delete-icon">
+                    <i class="bi bi-trash3"></i>
+                </div>
+
+                <!-- TÍTULO -->
+                <h2
+                        class="delete-title mb-3"
+                        id="eliminarMascotaTitulo">
+
+                    ¿Eliminar mascota?
+
+                </h2>
+
+                <!-- DESCRIPCIÓN -->
+                <p
+                        class="delete-description mb-0"
+                        id="eliminarMascotaDescripcion">
+
+                    Estás a punto de eliminar a
+
+                    <strong
+                            id="nombreMascotaEliminar"
+                            class="text-dark">
+                        tu mascota
+                    </strong>
+
+                    de tu cuenta VetCenter.
+
+                </p>
+
+                <!-- ADVERTENCIA -->
+                <div class="delete-warning">
+
+                    <i class="bi bi-exclamation-triangle"></i>
+
+                    <span>
+                        Esta acción puede ser irreversible.
+                        Si la mascota tiene citas asociadas,
+                        el sistema podría impedir su eliminación.
+                    </span>
+
+                </div>
+
+                <!-- MENSAJE DE ERROR -->
+                <div
+                        id="eliminarMascotaMensaje"
+                        class="alert alert-danger d-none mt-3 mb-0 text-start"
+                        role="alert"
+                        aria-live="polite">
+                </div>
+
+            </div>
+
+            <!-- BOTONES -->
+            <div class="modal-footer">
+
+                <button
+                        type="button"
+                        id="cancelarEliminarMascotaButton"
+                        class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">
+
+                    Cancelar
+
+                </button>
+
+
+                <button
+                        type="button"
+                        class="btn btn-danger"
+                        id="confirmarEliminarMascotaButton"
+                >
+                    <i class="bi bi-trash3 me-2"></i>
+                    Sí, eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ========================================== -->
+<!-- MODAL DE CONFIRMACIÓN - CANCELAR CITA -->
+<!-- ========================================== -->
+
+<div
+        class="modal fade"
+        id="cancelarCitaModal"
+        tabindex="-1"
+        aria-labelledby="cancelarCitaModalLabel"
+        aria-hidden="true"
+        data-bs-backdrop="static"
+>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- ENCABEZADO -->
+            <div class="modal-header border-0 pb-0">
+                <div>
+                    <i class="bi bi-calendar-x text-danger fs-4"></i>
+
+                    <h5
+                            class="modal-title fw-bold mt-2"
+                            id="cancelarCitaModalLabel"
+                    >
+                        ¿Cancelar cita veterinaria?
+                    </h5>
+                </div>
+            </div>
+
+            <!-- CONTENIDO -->
+            <div class="modal-body">
+                <p class="mb-2">
+                    Estás a punto de cancelar tu cita
+                    veterinaria en <strong>VetCenter</strong>.
+                </p>
+
+                <p class="text-muted small mb-3">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    Esta acción cambiará el estado de la cita
+                    a cancelada.
+                </p>
+
+                <!-- MENSAJE DE ERROR -->
+                <div
+                        id="cancelarCitaMensaje"
+                        class="alert alert-danger d-none"
+                        role="alert"
+                ></div>
+            </div>
+
+            <!-- BOTONES -->
+            <div class="modal-footer">
+
+                <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        id="volverCancelarCitaButton"
+                        data-bs-dismiss="modal"
+                >
+                    Volver
+                </button>
+
+                <button
+                        type="button"
+                        class="btn btn-danger"
+                        id="confirmarCancelarCitaButton"
+                >
+                    <i class="bi bi-calendar-x me-2"></i>
+                    Sí, cancelar cita
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================
+     MI PERFIL (interfaz; pendiente integración API)
+     ========================================== -->
+<div class="modal fade" id="perfilModal" tabindex="-1"
+     aria-labelledby="perfilModalTitulo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content border-0 rounded-4 overflow-hidden">
+            <div class="modal-header px-4 py-3" style="background:#f7faf9;">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="client-form-icon"><i class="bi bi-person-gear"></i></span>
+                    <div>
+                        <h2 class="modal-title fs-5 fw-bold mb-1" id="perfilModalTitulo">Mi perfil</h2>
+                        <p class="text-muted small mb-0">Personaliza tu cuenta VetCenter.</p>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="d-flex align-items-center gap-3 mb-4 flex-wrap">
+                    <div class="rounded-circle d-grid align-items-center justify-content-center"
+                         style="width:88px;height:88px;background:#e9f7f2;color:#087f72;overflow:hidden;">
+                        <i class="bi bi-person-circle fs-1" id="perfilFotoIcono"></i>
+                        <img id="perfilFotoVista" class="d-none" alt="Vista previa de tu foto"
+                             style="width:88px;height:88px;object-fit:cover;">
+                    </div>
+                    <div>
+                        <label for="perfilFoto" class="btn btn-outline-primary btn-sm mb-1">
+                            <i class="bi bi-camera me-1"></i> Seleccionar fotografía
+                        </label>
+                        <input type="file" id="perfilFoto" class="visually-hidden"
+                               accept="image/jpeg,image/png,image/webp">
+                        <p class="small text-muted mb-0">JPG, PNG o WebP, máximo 2 MB.</p>
+                    </div>
+                </div>
+                <form id="perfilDatosForm">
+                    <h3 class="h6 fw-bold mb-3">Datos personales</h3>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="perfilNombres">Nombres</label>
+                            <input id="perfilNombres" class="form-control" maxlength="100" required autocomplete="given-name">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="perfilApellidos">Apellidos</label>
+                            <input id="perfilApellidos" class="form-control" maxlength="100" required autocomplete="family-name">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="perfilTelefono">Teléfono</label>
+                            <input id="perfilTelefono" type="tel" class="form-control"
+                                   inputmode="numeric" pattern="[0-9]{9}" maxlength="9" autocomplete="tel">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="perfilCorreo">Correo electrónico</label>
+                            <input id="perfilCorreo" type="email" class="form-control" readonly
+                                   title="El cambio de correo requerirá un proceso de verificación">
+                        </div>
+                    </div>
+                    <p class="small text-muted mt-3">El correo se muestra como referencia. Su modificación requiere verificación.</p>
+                    <div id="perfilDatosMensaje"
+                         class="alert alert-info mt-3 mb-3 d-none"
+                         role="status">
+                    </div>
+                    <div class="text-end">
+                        <button id="perfilGuardarDatos"
+                                type="submit"
+                                class="btn btn-primary">
+                            <i class="bi bi-check2-circle me-1"></i>
+                            Guardar cambios
+                        </button>
+                    </div>
+                </form>
+                <hr class="my-4">
+
+                <form id="perfilPasswordForm">
+
+                    <h3 class="h6 fw-bold mb-4">
+                        <i class="bi bi-shield-lock me-2"></i>
+                        Seguridad y contraseña
+                    </h3>
+
+                    <div class="row g-3">
+
+                        <!-- CONTRASEÑA ACTUAL -->
+                        <div class="col-12">
+                            <label for="perfilPasswordActual"
+                                   class="form-label">
+                                Contraseña actual
+                            </label>
+
+                            <div class="input-group">
+                                <input id="perfilPasswordActual"
+                                       type="password"
+                                       class="form-control"
+                                       autocomplete="current-password"
+                                       placeholder="Ingresa tu contraseña actual"
+                                       required>
+
+                                <button type="button"
+                                        class="btn btn-outline-secondary toggle-password"
+                                        data-target="perfilPasswordActual"
+                                        aria-label="Mostrar contraseña actual"
+                                        aria-pressed="false">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- NUEVA CONTRASEÑA -->
+                        <div class="col-md-6">
+                            <label for="perfilPasswordNueva"
+                                   class="form-label">
+                                Nueva contraseña
+                            </label>
+
+                            <div class="input-group">
+                                <input id="perfilPasswordNueva"
+                                       type="password"
+                                       class="form-control"
+                                       autocomplete="new-password"
+                                       minlength="8"
+                                       placeholder="Mínimo 8 caracteres"
+                                       required>
+
+                                <button type="button"
+                                        class="btn btn-outline-secondary toggle-password"
+                                        data-target="perfilPasswordNueva"
+                                        aria-label="Mostrar nueva contraseña"
+                                        aria-pressed="false">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- CONFIRMAR CONTRASEÑA -->
+                        <div class="col-md-6">
+                            <label for="perfilPasswordConfirmar"
+                                   class="form-label">
+                                Confirmar contraseña
+                            </label>
+
+                            <div class="input-group">
+                                <input id="perfilPasswordConfirmar"
+                                       type="password"
+                                       class="form-control"
+                                       autocomplete="new-password"
+                                       minlength="8"
+                                       placeholder="Repite la contraseña"
+                                       required>
+
+                                <button type="button"
+                                        class="btn btn-outline-secondary toggle-password"
+                                        data-target="perfilPasswordConfirmar"
+                                        aria-label="Mostrar confirmación"
+                                        aria-pressed="false">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="perfilPasswordMensaje"
+                         class="alert alert-info mt-3 d-none"
+                         role="status">
+                    </div>
+
+                    <!-- BOTÓN CON SEPARACIÓN -->
+                    <div class="perfil-password-actions">
+                        <button id="perfilGuardarPassword"
+                                type="submit"
+                                class="btn btn-primary">
+                            <i class="bi bi-key me-2"></i>
+                            Cambiar contraseña
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<!-- Selector de horarios de citas -->
+<script src="/js/citas-horarios.js"></script>
+
+<!-- Dashboard del cliente -->
+<script src="/js/dashboard.js"></script>
+
+<script>
+    // Vista previa local de foto. No se guarda ni se envía al servidor todavía.
+    document.getElementById('perfilFoto')?.addEventListener('change', function () {
+        const archivo = this.files?.[0];
+        if (!archivo) return;
+        const mensaje = document.getElementById('perfilDatosMensaje');
+        if (!['image/jpeg', 'image/png', 'image/webp'].includes(archivo.type) || archivo.size > 2 * 1024 * 1024) {
+            this.value = '';
+            mensaje.className = 'alert alert-danger mt-3 mb-3';
+            mensaje.textContent = 'Selecciona una imagen JPG, PNG o WebP de máximo 2 MB.';
+            return;
+        }
+        const lector = new FileReader();
+        lector.onload = () => {
+            const vista = document.getElementById('perfilFotoVista');
+            vista.src = lector.result;
+            vista.classList.remove('d-none');
+            document.getElementById('perfilFotoIcono').classList.add('d-none');
+            mensaje.className = 'alert alert-info mt-3 mb-3';
+            mensaje.textContent = 'Vista previa lista. La foto aún no se ha guardado.';
+        };
+        lector.readAsDataURL(archivo);
+    });
+</script>
+
+<script>
+    // ==============================================
+    // VETCENTER - NAVEGACIÓN POR APARTADOS
+    // ==============================================
+    (() => {
+        const secciones = ["inicio", "mascotas", "citas", "reservar"];
+        const enlacesMenu = document.querySelectorAll(
+            '.client-sidebar-nav a[href^="#"]'
+        );
+
+        function mostrarApartado(apartado) {
+            const destino = secciones.includes(apartado) ? apartado : "inicio";
+
+            secciones.forEach(id => {
+                const seccion = document.getElementById(id);
+                if (seccion) {
+                    seccion.classList.toggle("vet-vista-activa", id === destino);
+                }
+            });
+
+            enlacesMenu.forEach(enlace => {
+                const activo = enlace.getAttribute("href") === `#${destino}`;
+                enlace.classList.toggle("active", activo);
+                if (activo) {
+                    enlace.setAttribute("aria-current", "page");
+                } else {
+                    enlace.removeAttribute("aria-current");
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: "instant" });
+        }
+
+        // Incluye enlaces del menú y el botón "Reservar una cita" del inicio.
+        document.addEventListener("click", event => {
+            const enlace = event.target.closest('a[href^="#"]');
+            if (!enlace) return;
+
+            const destino = enlace.getAttribute("href").slice(1);
+            if (!secciones.includes(destino)) return;
+
+            event.preventDefault();
+            if (window.location.hash !== `#${destino}`) {
+                history.pushState(null, "", `#${destino}`);
+            }
+            mostrarApartado(destino);
+        }, true);
+
+        window.addEventListener("hashchange", () => {
+            mostrarApartado(window.location.hash.slice(1));
+        });
+        window.addEventListener("popstate", () => {
+            mostrarApartado(window.location.hash.slice(1));
+        });
+
+        mostrarApartado(window.location.hash.slice(1));
+    })();
+</script>
+</body>
+</html>

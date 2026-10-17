@@ -1,0 +1,177 @@
+
+.pedidos-body {
+    background: #f4f8fa;
+    min-height: 100vh;
+    color: #102c35;
+}
+
+.pedidos-navbar {
+    background: white;
+    border-bottom: 1px solid #e5edef;
+    padding: 16px 0;
+}
+
+.pedidos-logo {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+.pedidos-marca {
+    color: #102c35;
+}
+
+.pedidos-panel {
+    background: white;
+    border: 1px solid #e5edef;
+    border-radius: 18px;
+    padding: 28px;
+}
+
+.pedido-card {
+    background: #ffffff;
+    border: 1px solid #e3e9ed;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: box-shadow .2s ease;
+}
+
+.pedido-card:hover {
+    box-shadow: 0 8px 24px rgba(16, 44, 53, .07);
+}
+
+.pedido-total {
+    font-size: 24px;
+    font-weight: 800;
+    color: #087f72;
+}
+
+@media (max-width: 576px) {
+    .pedidos-panel {
+        padding: 16px;
+    }
+
+    .pedido-card {
+        padding: 18px;
+    }
+}
+
+
+/* DETALLE DE LOS PEDIDOS */
+
+.pedido-detalle {
+    background: #f7fbfa;
+    border: 1px solid #dcebe6;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.pedido-detalle .table {
+    background: transparent;
+    margin-bottom: 0;
+}
+
+.pedido-detalle th {
+    font-size: 13px;
+    color: #52666d;
+    font-weight: 700;
+}
+
+.pedido-detalle td {
+    font-size: 14px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+@media (max-width: 576px) {
+    .pedido-detalle {
+        padding: 12px;
+    }
+}
+/* ==========================================
+   VETCENTER - SEGUIMIENTO DE PEDIDOS
+   ========================================== */
+
+.seguimiento-pedido {
+    padding: 22px;
+    background: #f7faf9;
+    border: 1px solid #e1ece7;
+    border-radius: 16px;
+}
+
+.seguimiento-pasos {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    position: relative;
+}
+
+.seguimiento-paso {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    color: #87958f;
+    min-width: 0;
+}
+
+.seguimiento-icono {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #e9eeeb;
+    color: #9aa8a1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border: 2px solid #dce6e0;
+}
+
+.seguimiento-paso.completado .seguimiento-icono {
+    background: #087f67;
+    border-color: #087f67;
+    color: white;
+}
+
+.seguimiento-paso.completado .seguimiento-texto {
+    color: #087f67;
+    font-weight: 600;
+}
+
+.seguimiento-texto {
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.seguimiento-mensaje {
+    padding: 12px 14px;
+    background: #eaf6f1;
+    border-left: 3px solid #087f67;
+    border-radius: 8px;
+    color: #245c4d;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+@media (max-width: 576px) {
+    .seguimiento-pedido {
+        padding: 16px 12px;
+    }
+
+    .seguimiento-pasos {
+        gap: 4px;
+    }
+
+    .seguimiento-icono {
+        width: 32px;
+        height: 32px;
+        font-size: 15px;
+    }
+
+    .seguimiento-texto {
+        font-size: 10px;
+    }
+}

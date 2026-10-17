@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>4.1.1</version>
+		<relativePath/>
+	</parent>
+
+	<groupId>Cibertec.pe</groupId>
+	<artifactId>SOAP-Proj-VetCenter-Client</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>SOAP-Proj-VetCenter-Client</name>
+	<description>Cliente SOAP para VetCenter</description>
+
+	<properties>
+		<java.version>21</java.version>
+	</properties>
+
+	<dependencies>
+
+		<!-- Spring Boot -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<!-- Spring Web MVC -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc</artifactId>
+		</dependency>
+
+		<!-- Spring Web Services -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webservices</artifactId>
+		</dependency>
+
+		<!-- Cliente SOAP JAX-WS -->
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-rt</artifactId>
+			<version>4.0.5</version>
+		</dependency>
+
+		<!-- Persistencia JPA -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- MySQL -->
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Cifrado BCrypt -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+		</dependency>
+
+		<!-- Envío de correos electrónicos -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<!-- Pruebas -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.librepdf</groupId>
+			<artifactId>openpdf</artifactId>
+			<version>2.0.5</version>
+		</dependency>
+
+
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<!-- Spring Boot -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- Generación de clientes SOAP -->
+			<plugin>
+				<groupId>com.sun.xml.ws</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>4.0.5</version>
+
+				<executions>
+
+					<!-- Productos -->
+					<execution>
+						<id>soap-productos</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlUrls>
+								<wsdlUrl>http://localhost:8085/ws/producto?wsdl</wsdlUrl>
+							</wsdlUrls>
+							<packageName>Cibertec.pe.soap.producto</packageName>
+							<keep>true</keep>
+						</configuration>
+					</execution>
+
+					<!-- Clientes -->
+					<execution>
+						<id>soap-clientes</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlUrls>
+								<wsdlUrl>http://localhost:8085/ws/cliente?wsdl</wsdlUrl>
+							</wsdlUrls>
+							<packageName>Cibertec.pe.soap.cliente</packageName>
+						</configuration>
+					</execution>
+
+					<!-- Mascotas -->
+					<execution>
+						<id>soap-mascotas</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlUrls>
+								<wsdlUrl>http://localhost:8085/ws/mascota?wsdl</wsdlUrl>
+							</wsdlUrls>
+							<packageName>Cibertec.pe.soap.mascota</packageName>
+						</configuration>
+					</execution>
+
+					<!-- Medicamentos -->
+					<execution>
+						<id>soap-medicamentos</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlUrls>
+								<wsdlUrl>http://localhost:8085/ws/medicamento?wsdl</wsdlUrl>
+							</wsdlUrls>
+							<packageName>Cibertec.pe.soap.medicamento</packageName>
+						</configuration>
+					</execution>
+
+					<!-- Citas -->
+					<execution>
+						<id>soap-citas</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlUrls>
+								<wsdlUrl>http://localhost:8085/ws/cita?wsdl</wsdlUrl>
+							</wsdlUrls>
+							<packageName>Cibertec.pe.soap.cita</packageName>
+						</configuration>
+					</execution>
+
+
+					<!-- SERVICIO SOAP DE PEDIDOS -->
+					<execution>
+						<id>soap-pedidos</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlUrls>
+								<wsdlUrl>http://localhost:8085/ws/pedido?wsdl</wsdlUrl>
+							</wsdlUrls>
+							<packageName>Cibertec.pe.soap.pedido</packageName>
+							<sourceDestDir>
+								${project.build.directory}/generated-sources/wsimport
+							</sourceDestDir>
+							<keep>true</keep>
+						</configuration>
+					</execution>
+
+				</executions>
+
+				<configuration>
+					<sourceDestDir>${project.build.directory}/generated-sources/wsimport</sourceDestDir>
+					<xnocompile>true</xnocompile>
+					<keep>true</keep>
+				</configuration>
+
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

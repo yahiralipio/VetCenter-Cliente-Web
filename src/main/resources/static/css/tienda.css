@@ -1,0 +1,422 @@
+
+/* ==========================================
+   VETCENTER - VARIABLES GENERALES
+   ========================================== */
+
+:root {
+    --tienda-verde: #087f72;
+    --tienda-oscuro: #102c35;
+}
+
+/* ==========================================
+   ESTILOS GENERALES
+   ========================================== */
+
+.tienda-cliente-body {
+    background: #f5f8fa;
+    color: #172b32;
+}
+
+.tienda-navbar {
+    background: #fff;
+    border-bottom: 1px solid #e5edef;
+    padding: 14px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.tienda-logo-cliente {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+}
+
+.tienda-marca {
+    color: var(--tienda-oscuro);
+}
+
+/* ==========================================
+   VETCENTER - HERO
+   ========================================== */
+
+.tienda-hero {
+    background: linear-gradient(
+            120deg,
+            #087f72 0%,
+            #0e9c89 100%
+    );
+    color: white;
+    padding: 70px 0;
+}
+
+.tienda-hero h1 {
+    max-width: 700px;
+    font-size: clamp(32px, 4vw, 54px);
+    font-weight: 800;
+    letter-spacing: -1.4px;
+}
+
+.tienda-hero p {
+    max-width: 580px;
+    font-size: 17px;
+    line-height: 1.8;
+    opacity: .92;
+}
+
+.tienda-etiqueta {
+    display: inline-block;
+    background: rgba(255, 255, 255, .16);
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 30px;
+    padding: 8px 15px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.tienda-hero-icon {
+    font-size: 150px;
+    opacity: .3;
+}
+
+/* ==========================================
+   VETCENTER - TARJETAS DE PRODUCTOS
+   Y MEDICAMENTOS
+   ========================================== */
+
+/* Tarjeta principal */
+.producto-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: white;
+    border: 1px solid #e5edef;
+    border-radius: 18px;
+    overflow: hidden;
+
+    transition:
+            transform .2s ease,
+            box-shadow .2s ease;
+}
+
+/* Efecto al pasar el cursor */
+.producto-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(20, 55, 60, .09);
+}
+
+/* Contenedor de imagen */
+.producto-imagen-contenedor {
+    height: 220px;
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    background: #f8fbfa;
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* Imagen del producto */
+.producto-imagen {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* Evitar que las imágenes desborden */
+.producto-card img {
+    display: block;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* Icono cuando no existe imagen */
+.producto-sin-imagen {
+    font-size: 65px;
+    color: #a6c8c1;
+}
+
+/* ==========================================
+   CONTENIDO DE LAS TARJETAS
+   ========================================== */
+
+/* Compatible con ambos tipos de contenedor */
+.producto-contenido,
+.producto-card .card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    background: #fff;
+}
+
+.producto-contenido {
+    padding: 22px;
+}
+
+.producto-card .card-body {
+    position: relative;
+    gap: 8px;
+    padding: 18px;
+}
+
+/* Categoría */
+.producto-categoria {
+    color: var(--tienda-verde);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+}
+
+/* Nombre */
+.producto-nombre {
+    font-size: 18px;
+    font-weight: 750;
+    margin: 10px 0;
+}
+
+/* Descripción */
+.producto-descripcion {
+    color: #71818a;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 42px;
+}
+
+/* Precio */
+.producto-precio {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--tienda-verde);
+}
+
+/* Stock */
+.producto-stock {
+    font-size: 12px;
+    color: #71818a;
+}
+
+/* ==========================================
+   ALINEACIÓN DE PRECIOS Y BOTONES
+   ========================================== */
+
+/*
+   El precio se desplaza hacia la parte inferior.
+   Así, precio, stock y botón permanecen juntos.
+*/
+
+.producto-contenido > .producto-precio,
+.producto-card .card-body > .producto-precio {
+    margin-top: auto;
+}
+
+/* Botón de carrito como último elemento */
+.producto-contenido > .btn:last-child,
+.producto-contenido > button:last-child,
+.producto-card .card-body > .btn:last-child,
+.producto-card .card-body > button:last-child {
+    width: 100%;
+}
+
+/*
+   Si el botón se encuentra dentro de otro
+   contenedor, se mantiene su ancho completo.
+*/
+
+.producto-contenido > div:last-child > .btn,
+.producto-card .card-body > div:last-child > .btn {
+    width: 100%;
+}
+
+/*
+   Mantener el espacio entre el stock
+   y el botón.
+*/
+
+.producto-stock {
+    margin-bottom: 12px;
+}
+
+/* Evitar superposiciones */
+.producto-card .card-body > * {
+    position: static;
+}
+
+/* ==========================================
+   VETCENTER - CARRITO DE COMPRAS
+   ========================================== */
+
+#panelCarrito {
+    --bs-offcanvas-width: 430px;
+    border-left: 1px solid #e5edef;
+}
+
+#panelCarrito .offcanvas-header {
+    padding: 22px 24px;
+    background: #f8fbfa;
+}
+
+#panelCarrito .offcanvas-body {
+    padding: 22px;
+}
+
+.carrito-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    transition: background .2s ease;
+}
+
+.carrito-item strong {
+    color: #102c35;
+    font-size: 15px;
+}
+
+.carrito-item .btn-outline-secondary {
+    min-width: 34px;
+    min-height: 34px;
+    border-radius: 8px;
+}
+
+.carrito-item .btn-link {
+    text-decoration: none;
+    font-size: 12px;
+}
+
+/* Total del carrito */
+#totalCarrito {
+    color: #087f72 !important;
+    font-weight: 800;
+}
+
+/* Confirmar compra */
+#confirmarCompra {
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+/* Vaciar carrito */
+#vaciarCarrito {
+    border-radius: 10px;
+}
+
+/* Abrir carrito */
+#abrirCarrito {
+    white-space: nowrap;
+}
+
+/* ==========================================
+   VETCENTER - IMÁGENES DEL CARRITO
+   ========================================== */
+
+.carrito-imagen-contenedor {
+    width: 78px;
+    height: 78px;
+    min-width: 78px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f8faf9;
+    border: 1px solid #e4e9e8;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.carrito-producto-imagen {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.carrito-sin-imagen {
+    font-size: 28px;
+    color: #8a9ba3;
+}
+
+.carrito-producto-informacion {
+    flex: 1;
+    min-width: 0;
+}
+
+.carrito-producto-informacion strong {
+    overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   VETCENTER - FOOTER
+   ========================================== */
+
+.tienda-footer {
+    margin-top: 45px;
+    background: #102c35;
+    color: white;
+    padding: 35px 0;
+}
+
+/* ==========================================
+   DISEÑO RESPONSIVO - TABLETS
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    .tienda-hero {
+        padding: 45px 0;
+    }
+
+    .tienda-hero-icon {
+        display: none;
+    }
+
+    .producto-imagen-contenedor {
+        height: 190px;
+    }
+}
+
+/* ==========================================
+   DISEÑO RESPONSIVO - CELULARES
+   ========================================== */
+
+@media (max-width: 576px) {
+
+    .producto-card img {
+        max-height: 190px;
+    }
+
+    .carrito-item {
+        gap: 10px;
+    }
+
+    .carrito-imagen-contenedor {
+        width: 64px;
+        height: 64px;
+        min-width: 64px;
+    }
+
+    .carrito-producto-informacion .btn {
+        padding: 5px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    #panelCarrito {
+        --bs-offcanvas-width: 100%;
+    }
+
+    .tienda-navbar .container {
+        flex-wrap: wrap;
+    }
+}

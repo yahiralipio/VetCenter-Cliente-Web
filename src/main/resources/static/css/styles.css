@@ -1,0 +1,996 @@
+
+/* ==========================================
+   VETCENTER - ESTILOS GENERALES
+   Bootstrap 5.3 + Bootstrap Icons
+   ========================================== */
+
+:root {
+    --primary: #087f72;
+    --primary-dark: #06675d;
+    --primary-light: #e9f7f2;
+
+    --text: #172b32;
+    --muted: #71818a;
+
+    --background: #f5f8fa;
+    --surface: #ffffff;
+    --border: #dce6e5;
+
+    --sidebar-bg: #102c35;
+    --sidebar-hover: #1d4650;
+
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 22px;
+
+    --shadow-card:
+            0 20px 60px rgba(22, 63, 61, 0.10);
+
+    --transition: 0.2s ease;
+}
+
+/* ==========================================
+   BASE
+   ========================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family:
+            "Segoe UI",
+            Inter,
+            Arial,
+            sans-serif;
+
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    transition:
+            background-color var(--transition),
+            border-color var(--transition),
+            box-shadow var(--transition);
+}
+
+a {
+    transition: color var(--transition);
+}
+
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+/* ==========================================
+   BOOTSTRAP - COLORES
+   ========================================== */
+
+.btn-primary {
+    --bs-btn-bg: var(--primary);
+    --bs-btn-border-color: var(--primary);
+
+    --bs-btn-hover-bg: var(--primary-dark);
+    --bs-btn-hover-border-color: var(--primary-dark);
+
+    --bs-btn-active-bg: var(--primary-dark);
+    --bs-btn-active-border-color: var(--primary-dark);
+
+    --bs-btn-disabled-bg: var(--primary);
+    --bs-btn-disabled-border-color: var(--primary);
+
+    border-radius: var(--radius-sm);
+    padding: 12px 18px;
+    font-weight: 650;
+}
+
+.btn-primary:focus-visible {
+    box-shadow: 0 0 0 4px rgba(8, 127, 114, 0.2);
+}
+
+.btn-outline-secondary {
+    --bs-btn-hover-bg: var(--primary-light);
+    --bs-btn-hover-border-color: var(--primary);
+    --bs-btn-hover-color: var(--primary);
+
+    --bs-btn-active-bg: var(--primary-light);
+    --bs-btn-active-border-color: var(--primary);
+    --bs-btn-active-color: var(--primary);
+}
+
+/* ==========================================
+   LOGIN Y REGISTRO
+   ========================================== */
+
+.auth-page {
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+
+    background:
+            radial-gradient(
+                    circle at 10% 15%,
+                    rgba(8, 127, 114, 0.14),
+                    transparent 35%
+            ),
+            radial-gradient(
+                    circle at 90% 85%,
+                    rgba(81, 150, 200, 0.12),
+                    transparent 35%
+            ),
+            linear-gradient(
+                    135deg,
+                    #effaf5 0%,
+                    #f4f9fc 100%
+            );
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 560px;
+
+    padding: 42px;
+
+    background: var(--surface);
+    border: 1px solid rgba(220, 230, 229, 0.8);
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-card);
+}
+
+.brand {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.brand-icon {
+    width: 68px;
+    height: 68px;
+
+    margin: 0 auto 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    border-radius: 20px;
+    font-size: 34px;
+}
+
+.brand h1 {
+    margin-bottom: 6px;
+
+    color: var(--primary);
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+}
+
+.brand p {
+    margin-bottom: 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.auth-card h2 {
+    margin-bottom: 10px;
+
+    font-size: 25px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    margin-bottom: 0;
+
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* ==========================================
+   FORMULARIOS
+   ========================================== */
+
+.form-label {
+    margin-bottom: 8px;
+
+    color: #29454a;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-control,
+.form-select {
+    min-height: 46px;
+
+    padding: 11px 14px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+
+    background-color: #ffffff;
+    color: var(--text);
+
+    font-size: 14px;
+
+    transition:
+            border-color var(--transition),
+            box-shadow var(--transition);
+}
+
+.form-control::placeholder {
+    color: #9aa8ad;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(8, 127, 114, 0.12);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+    background-color: #f3f6f6;
+}
+
+/* Grupos de campos con iconos */
+
+.input-group-text {
+    min-width: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f8fbfa;
+    color: #64827e;
+
+    border: 1px solid var(--border);
+    font-size: 16px;
+}
+
+.input-group > .input-group-text:first-child {
+    border-top-left-radius: var(--radius-sm);
+    border-bottom-left-radius: var(--radius-sm);
+}
+
+.input-group > .form-control {
+    border-radius: 0;
+}
+
+.input-group > .form-control:last-child {
+    border-top-right-radius: var(--radius-sm);
+    border-bottom-right-radius: var(--radius-sm);
+}
+
+.input-group > .btn:last-child {
+    border-top-right-radius: var(--radius-sm);
+    border-bottom-right-radius: var(--radius-sm);
+}
+
+.input-group:focus-within .input-group-text {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.input-group .form-control:focus {
+    position: relative;
+    z-index: 2;
+}
+
+/* Botones para mostrar contraseñas */
+
+#togglePassword,
+#toggleConfirmPassword {
+    min-width: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-color: var(--border);
+    background: #ffffff;
+    color: #667f83;
+
+    font-size: 17px;
+}
+
+#togglePassword:hover,
+#toggleConfirmPassword:hover {
+    background: var(--primary-light);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+#togglePassword:focus-visible,
+#toggleConfirmPassword:focus-visible {
+    position: relative;
+    z-index: 3;
+}
+
+/* Textos de ayuda */
+
+.form-text {
+    margin-top: 7px;
+
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Validaciones */
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.form-control.is-valid {
+    border-color: #198754;
+}
+
+/*
+   Bootstrap solo muestra .invalid-feedback
+   automáticamente cuando es hermano directo
+   del input. Nuestro formulario lo coloca
+   fuera del .input-group.
+*/
+
+.input-group:has(.is-invalid) + .invalid-feedback {
+    display: block;
+}
+
+.invalid-feedback {
+    font-size: 12px;
+}
+
+/* ==========================================
+   BOTON DE REGISTRO
+   ========================================== */
+
+#registroButton {
+    min-height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+    font-size: 15px;
+    letter-spacing: 0.1px;
+}
+
+#registroButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+
+/* ==========================================
+   MENSAJES
+   ========================================== */
+
+.auth-card .alert {
+    border-radius: 12px;
+    border-width: 1px;
+
+    padding: 13px 15px;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.auth-card .alert-success {
+    background: #e9f7f0;
+    border-color: #c8e9d8;
+    color: #176442;
+}
+
+.auth-card .alert-danger {
+    background: #fff0f0;
+    border-color: #f3cece;
+    color: #a33434;
+}
+
+/* ==========================================
+   PIE DE AUTENTICACION
+   ========================================== */
+
+.auth-footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.auth-footer a {
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* ==========================================
+   DASHBOARD
+   ========================================== */
+
+.dashboard-body {
+    background: var(--background);
+}
+
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    flex-shrink: 0;
+
+    background: var(--sidebar-bg);
+    color: #ffffff;
+
+    padding: 28px 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.sidebar-brand {
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #c6d8dc;
+    text-decoration: none;
+
+    padding: 13px 16px;
+    border-radius: 10px;
+
+    transition:
+            background-color var(--transition),
+            color var(--transition);
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background: var(--sidebar-hover);
+    color: #ffffff;
+}
+
+.dashboard-main {
+    flex: 1;
+    min-width: 0;
+    padding: 38px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+
+    margin-bottom: 32px;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 750;
+}
+
+.user-avatar {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+    background: #d9f3eb;
+
+    color: var(--primary);
+    font-size: 27px;
+}
+
+/* ==========================================
+   BANNER PRINCIPAL
+   ========================================== */
+
+.welcome-banner {
+    background:
+            linear-gradient(
+                    120deg,
+                    #087f72,
+                    #0e9c89
+            );
+
+    color: #ffffff;
+
+    border-radius: 22px;
+    padding: 35px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.welcome-banner h2 {
+    max-width: 520px;
+
+    font-size: 27px;
+    font-weight: 750;
+}
+
+.welcome-banner p {
+    opacity: 0.9;
+    line-height: 1.7;
+}
+
+.welcome-emoji {
+    font-size: 100px;
+}
+
+/* ==========================================
+   TARJETAS
+   ========================================== */
+
+.stat-card,
+.content-card,
+.pet-card {
+    background: #ffffff;
+
+    border: 1px solid #e5edef;
+    border-radius: 18px;
+
+    padding: 24px;
+
+    box-shadow: 0 4px 18px rgba(20, 55, 60, 0.025);
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stat-card span,
+.pet-card p {
+    color: var(--muted);
+}
+
+.stat-card strong {
+    font-size: 34px;
+    color: var(--primary);
+}
+
+.section-title {
+    font-size: 22px;
+    font-weight: 750;
+    margin-bottom: 20px;
+}
+
+.pet-card {
+    height: 100%;
+}
+
+.pet-icon {
+    font-size: 42px;
+    margin-bottom: 14px;
+}
+
+.pet-card h3 {
+    font-size: 21px;
+    font-weight: 750;
+}
+
+/* ==========================================
+   TABLAS
+   ========================================== */
+
+.table {
+    --bs-table-color: var(--text);
+}
+
+.table thead th {
+    color: #61767b;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+}
+
+.table-responsive {
+    border-radius: 12px;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 992px) {
+
+    .dashboard-main {
+        padding: 28px;
+    }
+
+    .welcome-banner {
+        padding: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .dashboard-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+
+        padding: 20px;
+        gap: 18px;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .sidebar-nav a {
+        padding: 10px 12px;
+    }
+
+    .dashboard-main {
+        padding: 20px;
+    }
+
+    .dashboard-header {
+        flex-wrap: wrap;
+    }
+
+    .dashboard-header h1 {
+        font-size: 24px;
+    }
+
+    .welcome-banner {
+        padding: 24px;
+    }
+
+    .welcome-banner h2 {
+        font-size: 23px;
+    }
+
+    .welcome-emoji {
+        display: none;
+    }
+
+    .auth-page {
+        padding: 20px 14px;
+    }
+
+    .auth-card {
+        padding: 30px 24px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .auth-page {
+        align-items: flex-start;
+        padding: 14px 10px;
+    }
+
+    .auth-card {
+        padding: 26px 20px;
+        border-radius: 18px;
+    }
+
+    .brand-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 29px;
+    }
+
+    .brand h1 {
+        font-size: 27px;
+    }
+
+    .auth-card h2 {
+        font-size: 22px;
+    }
+
+    .dashboard-main {
+        padding: 16px;
+    }
+
+    .stat-card,
+    .content-card,
+    .pet-card {
+        padding: 18px;
+    }
+}
+
+/* ==========================================
+   ACCESIBILIDAD
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
+/* ==========================================
+   VETCENTER - SEGURIDAD Y CONTRASEÑA
+   ========================================== */
+
+/* Campos de contraseña */
+
+#perfilPasswordForm .input-group {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#perfilPasswordForm .input-group > .form-control {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 46px;
+    border-radius: 10px 0 0 10px;
+}
+
+/* Botones para mostrar y ocultar contraseñas */
+
+#perfilPasswordForm .toggle-password {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 48px;
+
+    min-height: 46px;
+    padding: 0;
+
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-left: 0;
+    border-radius: 0 10px 10px 0;
+
+    color: #667f83;
+    font-size: 17px;
+    cursor: pointer;
+
+    transition: background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+#perfilPasswordForm .toggle-password:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+#perfilPasswordForm .toggle-password:focus-visible {
+    position: relative;
+    z-index: 3;
+}
+
+/* Contenedor del botón */
+
+#perfilPasswordForm .perfil-password-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    margin-top: 32px;
+    padding: 0 16px 24px;
+}
+
+/* Botón Cambiar contraseña */
+
+#perfilPasswordForm #perfilGuardarPassword {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: auto;
+    min-height: 44px;
+    padding: 10px 22px;
+
+    background: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+#perfilPasswordForm #perfilGuardarPassword:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+#perfilPasswordForm #perfilGuardarPassword:disabled {
+    opacity: 0.65;
+    transform: none;
+}
+
+/* Adaptación a celulares */
+
+@media (max-width: 575px) {
+    #perfilPasswordForm .perfil-password-actions {
+        padding: 0 8px 20px;
+    }
+
+    #perfilPasswordForm #perfilGuardarPassword {
+        width: 100%;
+    }
+
+    /* ==========================================
+       VETCENTER - FONDO PERSONALIZADO DEL LOGIN
+       ========================================== */
+
+
+        background-image:
+                linear-gradient(
+                        rgba(255, 255, 255, 0.15),
+                        rgba(255, 255, 255, 0.15)
+                ),
+                url("../images/VetCenter_Login.png");
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .auth-card {
+        position: relative;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+
+
+/* ==========================================
+   VETCENTER - FONDO PERSONALIZADO DEL LOGIN
+   ========================================== */
+
+body:has(.auth-page) .auth-page {
+    min-height: 100vh;
+
+    background-image: url("../images/VetCenter_Login.png") !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Mantener el formulario visible */
+body:has(.auth-page) .auth-card {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ==========================================
+   VETCENTER - FONDO EXCLUSIVO DEL LOGIN
+   ========================================== */
+
+/* Solo el login */
+body:has(.auth-page) .auth-page {
+    min-height: 100vh;
+    background-image: url("../images/VetCenter_Login.png") !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Formulario del login */
+body:has(.auth-page) .auth-card {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ==========================================
+   VETCENTER - LOGOTIPO OFICIAL
+   ========================================== */
+
+.vetcenter-logo {
+    display: block;
+    object-fit: contain;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Logo del inicio de sesión */
+.vetcenter-logo-login {
+    width: 56px;
+    height: 56px;
+}
+
+/* Logo de la barra lateral */
+.vetcenter-logo-sidebar {
+    width: 38px;
+    height: 38px;
+}
+
+/* Adaptación para pantallas pequeñas */
+@media (max-width: 576px) {
+    .vetcenter-logo-login {
+        width: 50px;
+        height: 50px;
+    }
+
+    .vetcenter-logo-sidebar {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+
+

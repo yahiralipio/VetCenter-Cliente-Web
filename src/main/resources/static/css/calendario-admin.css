@@ -1,0 +1,110 @@
+/* VetCenter | Calendario administrativo moderno */
+#calendarioCitas { color:#12333c; }
+.vc-cal-resumen { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:0 0 24px; }
+.vc-cal-resumen-card { border:1px solid #e1e9ec;border-radius:15px;background:#fff;padding:16px 18px;display:flex;flex-direction:column;gap:4px; }
+.vc-cal-resumen-cabecera { display:flex;align-items:center;gap:9px;font-size:13px;color:#647681; }
+.vc-cal-resumen-cabecera i { font-size:18px;color:#0b8277; }
+.vc-cal-resumen-numero { font-size:28px;line-height:1.15;letter-spacing:-.03em; }
+.vc-cal-resumen-card small { color:#7a8992;font-size:12px; }
+.vc-cal-grid-scroll { overflow-x:auto;padding-bottom:5px; }
+.vc-cal-semana { display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:9px;min-width:650px; }
+.vc-cal-dia { appearance:none;width:100%;min-height:142px;border:1px solid #e1e9ec;border-radius:13px;background:#fff;color:#12333c;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center;transition:border-color .18s,background .18s,transform .18s;cursor:pointer; }
+.vc-cal-dia:hover { border-color:#0b8277;transform:translateY(-1px); }
+.vc-cal-dia:focus-visible { outline:3px solid #79c9bd;outline-offset:2px; }
+.vc-cal-dia--seleccionado { border:2px solid #0b8277;background:#eef9f6;padding:13px 7px; }
+.vc-cal-dia--hoy .vc-cal-dia-numero { color:#08796e; }
+.vc-cal-dia-nombre { font-size:12px;color:#71818b;text-transform:capitalize; }
+.vc-cal-dia-numero { font-size:21px;line-height:1;font-weight:750; }
+.vc-cal-dia-cantidad { background:#e8f4f1;color:#08796e;border-radius:7px;padding:5px 8px;font-size:11px;font-weight:700;white-space:nowrap; }
+.vc-cal-dia-vacio { color:#a0aeb6;font-size:11px; }
+.vc-cal-dia-puntos { display:flex;justify-content:center;gap:4px; }
+.vc-cal-punto { display:inline-block;width:7px;height:7px;border-radius:50%;background:#b4bdc2; }
+.vc-cal-punto--pendiente { background:#e8a317; }
+.vc-cal-punto--confirmada { background:#0b8277; }
+.vc-cal-punto--atendida { background:#3c82c7; }
+.vc-cal-punto--cancelada { background:#db6a72; }
+.vc-cal-detalles { margin-top:24px;border-top:1px solid #e7ecee;padding-top:20px; }
+.vc-cal-detalles-cabecera { display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px; }
+.vc-cal-detalles-cabecera h3 { font-size:17px;font-weight:750;margin:0;text-transform:capitalize; }
+.vc-cal-detalles-contador { border-radius:30px;background:#edf3f4;color:#34545d;padding:5px 11px;font-size:12px;font-weight:650;white-space:nowrap; }
+.vc-cal-lista { display:flex;flex-direction:column;gap:10px; }
+.vc-cal-cita { display:flex;align-items:center;gap:16px;width:100%;text-align:left;border:1px solid #e3e9ec;border-radius:13px;background:#fff;padding:13px 15px;cursor:pointer;transition:border-color .18s,background .18s; }
+.vc-cal-cita:hover { border-color:#83bfb5;background:#fbfefd; }
+.vc-cal-cita-hora { background:#f0f5f5;border-radius:8px;padding:10px;font-size:14px;font-weight:750;font-variant-numeric:tabular-nums; }
+.vc-cal-cita-info { display:flex;flex:1;min-width:0;flex-direction:column;gap:3px; }
+.vc-cal-cita-info strong { font-size:14px; }
+.vc-cal-cita-info small { color:#71818b;font-size:12px;overflow-wrap:anywhere; }
+.vc-cal-estado { display:inline-block;border-radius:7px;padding:6px 9px;font-size:11px;font-weight:700;white-space:nowrap;background:#edf2f4;color:#4c6570; }
+.vc-cal-estado--pendiente { background:#fff4d9;color:#996900; }
+.vc-cal-estado--confirmada { background:#e0f4ee;color:#08796e; }
+.vc-cal-estado--atendida { background:#e8f1fd;color:#2768aa; }
+.vc-cal-estado--cancelada { background:#fff0f1;color:#b33b48; }
+.vc-cal-sin-citas { display:flex;flex-direction:column;align-items:center;gap:9px;padding:35px 10px;color:#87969e; }
+.vc-cal-sin-citas i { font-size:26px; }
+.vc-cal-sin-citas p { margin:0;font-size:13px; }
+.vc-cal-mes { display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;min-width:650px; }
+.vc-cal-mes-dia-semana { text-align:center;color:#71818b;font-size:12px;font-weight:700;padding:6px 0; }
+.vc-cal-dia--mes { min-height:88px;gap:6px;padding:9px 5px; }
+.vc-cal-dia--mes.vc-cal-dia--seleccionado { padding:8px 4px; }
+.vc-cal-dia--mes .vc-cal-dia-nombre { display:none; }
+.vc-cal-dia--mes .vc-cal-dia-numero { font-size:16px; }
+.vc-cal-otro-mes { opacity:.42; }
+.vc-cal-modal-fondo { position:fixed;inset:0;z-index:12000;background:rgba(12,32,41,.55);display:flex;align-items:center;justify-content:center;padding:20px; }
+.vc-cal-modal { background:#fff;border-radius:18px;padding:25px;width:100%;max-width:440px;box-shadow:0 20px 65px rgba(0,0,0,.2); }
+.vc-cal-modal-cabecera { display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px; }
+.vc-cal-modal-cabecera h3 { font-size:20px;font-weight:750;margin:0; }
+.vc-cal-modal-datos { display:grid;grid-template-columns:110px 1fr;gap:12px 15px;font-size:13px;margin-bottom:24px; }
+.vc-cal-modal-datos dt { color:#74858e;font-weight:500; }
+.vc-cal-modal-datos dd { margin:0;font-weight:600;overflow-wrap:anywhere; }
+.vc-cal-modal .btn-primary { background:#0b8277;border-color:#0b8277;width:100%; }
+@media(max-width:700px) { .vc-cal-resumen { gap:7px; }.vc-cal-resumen-card { padding:12px 9px; }.vc-cal-resumen-cabecera { font-size:11px;gap:5px; }.vc-cal-resumen-numero { font-size:23px; }.vc-cal-cita { gap:9px;padding:11px 9px; }.vc-cal-cita-hora { padding:8px 6px;font-size:12px; }.vc-cal-estado { padding:5px;font-size:10px; } }
+
+
+/* ==========================================
+   VETCENTER - COLORES UNIFICADOS DE CITAS
+   ========================================== */
+
+/* PENDIENTE - Amarillo */
+#calendarioCitas .vc-cal-estado--pendiente {
+    background-color: #fff5d6;
+    color: #986500;
+    border: 1px solid #ffb900;
+}
+
+/* CONFIRMADA - Azul */
+#calendarioCitas .vc-cal-estado--confirmada {
+    background-color: #eaf1ff;
+    color: #1769ff;
+    border: 1px solid #1769ff;
+}
+
+/* ATENDIDA - Verde */
+#calendarioCitas .vc-cal-estado--atendida {
+    background-color: #e5f6ed;
+    color: #159463;
+    border: 1px solid #159463;
+}
+
+/* CANCELADA - Rojo */
+#calendarioCitas .vc-cal-estado--cancelada {
+    background-color: #ffedf0;
+    color: #e93246;
+    border: 1px solid #e93246;
+}
+
+/* Puntos de colores del calendario */
+#calendarioCitas .vc-cal-punto--pendiente {
+    background-color: #ffb900;
+}
+
+#calendarioCitas .vc-cal-punto--confirmada {
+    background-color: #1769ff;
+}
+
+#calendarioCitas .vc-cal-punto--atendida {
+    background-color: #159463;
+}
+
+#calendarioCitas .vc-cal-punto--cancelada {
+    background-color: #e93246;
+}

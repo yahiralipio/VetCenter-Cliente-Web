@@ -1,0 +1,1106 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tienda virtual | VetCenter</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/tienda-admin.css">
+</head>
+<body class="dashboard-body">
+
+<div class="dashboard-layout">
+
+    <aside class="sidebar tienda-sidebar">
+        <div class="d-flex align-items-center gap-3">
+            <img src="/images/Logo_VetCenter.png"
+                 alt="VetCenter" class="tienda-logo">
+            <div>
+                <strong class="fs-4">VetCenter</strong>
+                <div class="small text-white-50">Tienda virtual</div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav mt-4" aria-label="Navegación de tienda">
+            <a href="/admin.html">
+                <i class="bi bi-arrow-left"></i>
+                Panel principal
+            </a>
+            <a href="#resumen">
+                <i class="bi bi-grid"></i>
+                Resumen
+            </a>
+            <a href="#productos">
+                <i class="bi bi-box-seam"></i>
+                Productos
+            </a>
+            <a href="#medicamentos">
+                <i class="bi bi-capsule"></i>
+                Medicamentos
+            </a>
+            <a href="#categorias">
+                <i class="bi bi-tags"></i>
+                Categorías
+            </a>
+            <a href="#pedidos">
+                <i class="bi bi-receipt"></i>
+                Pedidos
+            </a>
+        </nav>
+
+        <div class="mt-auto">
+            <button id="logoutTienda" type="button"
+                    class="btn btn-outline-light w-100">
+                <i class="bi bi-box-arrow-right me-2"></i>
+                Cerrar sesión
+            </button>
+        </div>
+    </aside>
+
+    <main class="dashboard-main tienda-main">
+        <header class="dashboard-header">
+            <div>
+                <p class="text-muted small mb-2">
+                    VetCenter / Administración / Tienda
+                </p>
+                <h1>Administración de la tienda</h1>
+                <p class="text-muted mb-0">
+                    Gestiona el catálogo, las categorías y el inventario.
+                </p>
+            </div>
+            <div class="user-avatar">
+                <i class="bi bi-shop"></i>
+            </div>
+        </header>
+
+        <div id="mensajeTienda" class="alert d-none"
+             role="alert" aria-live="polite"></div>
+
+        <section id="resumen" class="mb-5">
+            <div class="row g-3">
+                <div class="col-sm-6 col-xl-3">
+                    <div class="stat-card">
+                        <span>Productos registrados</span>
+                        <strong id="totalProductos">—</strong>
+                        <small class="text-muted">Total del catálogo</small>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="stat-card">
+                        <span>Productos activos</span>
+                        <strong id="productosActivos">—</strong>
+                        <small class="text-muted">Disponibles en tienda</small>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="stat-card">
+                        <span>Stock bajo</span>
+                        <strong id="stockBajo">—</strong>
+                        <small class="text-muted">10 unidades o menos</small>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="stat-card">
+                        <span>Categorías</span>
+                        <strong id="totalCategorias">—</strong>
+                        <small class="text-muted">Categorías registradas</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="productos" class="mb-5">
+            <div class="d-flex justify-content-between align-items-center
+                        flex-wrap gap-3 mb-3">
+                <h2 class="section-title mb-0">
+                    <i class="bi bi-box-seam me-2"></i>
+                    Gestión de productos
+                </h2>
+                <button id="nuevoProducto" class="btn btn-primary">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Nuevo producto
+                </button>
+            </div>
+
+            <div class="content-card">
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label for="buscarProducto" class="form-label">
+                            Buscar producto
+                        </label>
+                        <input id="buscarProducto" type="search"
+                               class="form-control"
+                               placeholder="Nombre o descripción">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filtroCategoria" class="form-label">
+                            Categoría
+                        </label>
+                        <select id="filtroCategoria" class="form-select">
+                            <option value="">Todas</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filtroEstado" class="form-label">
+                            Estado
+                        </label>
+                        <select id="filtroEstado" class="form-select">
+                            <option value="">Todos</option>
+                            <option value="activo">Activos</option>
+                            <option value="inactivo">Inactivos</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Producto</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tablaProductos">
+                        <tr>
+                            <td colspan="7" class="text-center py-4">
+                                Cargando productos...
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p id="conteoFiltrado" class="text-muted small mb-0"></p>
+            </div>
+        </section>
+
+        <!-- ==================================
+             MEDICAMENTOS
+             ================================== -->
+
+        <section id="medicamentos" class="mb-5">
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+                <h2 class="section-title mb-0">
+                    <i class="bi bi-capsule me-2"></i>
+                    Gestión de medicamentos
+                </h2>
+
+                <button id="nuevoMedicamento" type="button" class="btn btn-primary">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Nuevo medicamento
+                </button>
+            </div>
+
+            <div class="content-card admin-table-card">
+
+                <div class="mb-3">
+
+                    <h3 class="h6 fw-bold mb-1">
+                        Inventario de medicamentos
+                    </h3>
+
+                    <p class="text-muted small mb-0">
+                        Consulta los medicamentos registrados,
+                        sus existencias y precios.
+                    </p>
+
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table align-middle">
+
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Imagen</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Presentación</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+
+
+                        <tbody id="tablaMedicamentosTienda">
+                        <tr>
+                            <td colspan="9" class="text-center py-4">
+                                Cargando medicamentos...
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <p id="mensajeMedicamentosTienda"
+                   class="text-muted small mb-0"></p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             CATEGORÍAS DE PRODUCTOS Y MEDICAMENTOS
+             ========================================== -->
+
+        <section id="categorias" class="mb-5">
+
+            <div class="d-flex justify-content-between
+                align-items-center flex-wrap gap-3 mb-3">
+
+                <h2 class="section-title mb-0">
+                    <i class="bi bi-tags me-2"></i>
+                    Gestión de categorías
+                </h2>
+
+                <button id="nuevaCategoria"
+                        type="button"
+                        class="btn btn-primary">
+
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Nueva categoría
+
+                </button>
+            </div>
+
+            <div class="content-card">
+
+                <!-- PESTAÑAS -->
+                <div class="d-flex flex-wrap gap-2 mb-4">
+
+                    <button id="tabCategoriasProductos"
+                            type="button"
+                            class="btn btn-primary"
+                            aria-pressed="true">
+
+                        <i class="bi bi-box-seam me-2"></i>
+                        Productos
+                    </button>
+
+                    <button id="tabCategoriasMedicamentos"
+                            type="button"
+                            class="btn btn-outline-primary"
+                            aria-pressed="false">
+
+                        <i class="bi bi-capsule me-2"></i>
+                        Medicamentos
+                    </button>
+
+                </div>
+
+                <!-- ENCABEZADO -->
+                <div class="mb-3">
+
+                    <h3 id="tituloListadoCategorias"
+                        class="h6 fw-bold mb-1">
+
+                        Categorías de productos
+                    </h3>
+
+                    <p class="text-muted small mb-0">
+                        Administra las categorías de productos
+                        y medicamentos de VetCenter.
+                    </p>
+
+                </div>
+
+                <!-- TABLA -->
+                <div class="table-responsive">
+
+                    <table class="table align-middle">
+
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="tablaCategorias">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <p id="mensajeCategoriasAdmin"
+                   class="small text-muted mb-0"
+                   aria-live="polite"></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- GESTIÓN DE PEDIDOS -->
+        <section id="pedidos" class="mb-5">
+
+            <div class="d-flex justify-content-between
+                align-items-center flex-wrap gap-3 mb-3">
+
+                <h2 class="section-title mb-0">
+                    <i class="bi bi-receipt me-2"></i>
+                    Gestión de pedidos
+                </h2>
+
+                <button id="actualizarPedidosAdmin"
+                        type="button"
+                        class="btn btn-primary">
+                    <i class="bi bi-arrow-clockwise me-2"></i>
+                    Actualizar pedidos
+                </button>
+            </div>
+
+            <div id="mensajePedidosAdmin"
+                 class="alert d-none"
+                 role="alert"></div>
+
+            <!-- ESTADÍSTICAS -->
+            <div class="row g-3 mb-4">
+
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <span>Pedidos registrados</span>
+                        <strong id="cantidadPedidosAdmin">0</strong>
+                        <small class="text-muted">
+                            Total de pedidos
+                        </small>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <span>Importe registrado</span>
+                        <strong id="importePedidosAdmin">
+                            S/ 0.00
+                        </strong>
+                        <small class="text-muted">
+                            No representa pagos recibidos
+                        </small>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <span>Pedidos confirmados</span>
+                        <strong id="confirmadosPedidosAdmin">0</strong>
+                        <small class="text-muted">
+                            Estado de los pedidos
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- TABLA Y FILTROS -->
+            <div class="content-card">
+
+                <div class="row g-3 mb-4">
+
+
+                    <div class="col-md-4">
+                        <label for="buscarPedidoAdmin" class="form-label">
+                            Buscar pedido
+                        </label>
+
+                        <input
+                                type="search"
+                                id="buscarPedidoAdmin"
+                                class="form-control"
+                                placeholder="Busca por nombre o DNI"
+                                autocomplete="off"
+                        >
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <label for="estadoPedidoAdmin"
+                               class="form-label">
+                            Estado del pedido
+                        </label>
+
+                        <select id="estadoPedidoAdmin"
+                                class="form-select">
+                            <option value="">Todos</option>
+                            <option value="CONFIRMADO">Confirmado</option>
+                            <option value="PENDIENTE">Pendiente</option>
+                            <option value="CANCELADO">Cancelado</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="fechaPedidoAdmin"
+                               class="form-label">
+                            Fecha del pedido
+                        </label>
+
+                        <input id="fechaPedidoAdmin"
+                               type="date"
+                               class="form-control">
+                    </div>
+
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                        <tr>
+                            <th>Pedido</th>
+                            <th>Cliente</th>
+                            <th>Fecha</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th>Pago</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="tablaPedidosAdmin">
+                        <tr>
+                            <td colspan="7"
+                                class="text-center py-4">
+                                Cargando pedidos...
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p id="conteoPedidosAdmin"
+                   class="text-muted small mb-0"></p>
+
+                <!-- DETALLE DEL PEDIDO -->
+                <div id="detallePedidoAdmin"
+                     class="mt-4 d-none"
+                     aria-live="polite"></div>
+            </div>
+
+        </section>
+    </main>
+</div>
+
+<!-- MODAL MEDICAMENTO -->
+<div class="modal fade" id="modalMedicamento"
+     tabindex="-1" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <form id="formMedicamento">
+
+                <div class="modal-header">
+                    <h5 id="tituloModalMedicamento" class="modal-title">
+                        Nuevo medicamento
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Cerrar">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="hidden" id="medicamentoId">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-8">
+                            <label for="medicamentoNombre"
+                                   class="form-label">
+                                Nombre del medicamento
+                            </label>
+
+                            <input type="text"
+                                   id="medicamentoNombre"
+                                   class="form-control"
+                                   maxlength="150"
+                                   required>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="medicamentoPresentacion"
+                                   class="form-label">
+                                Presentación
+                            </label>
+
+                            <input type="text"
+                                   id="medicamentoPresentacion"
+                                   class="form-control"
+                                   placeholder="Ej. Tabletas, jarabe"
+                                   required>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="medicamentoDescripcion"
+                                   class="form-label">
+                                Descripción
+                            </label>
+
+                            <textarea id="medicamentoDescripcion"
+                                      class="form-control"
+                                      rows="3"></textarea>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="medicamentoPrecio"
+                                   class="form-label">
+                                Precio (S/)
+                            </label>
+
+                            <input type="number"
+                                   id="medicamentoPrecio"
+                                   class="form-control"
+                                   min="0.01"
+                                   step="0.01"
+                                   required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="medicamentoStock"
+                                   class="form-label">
+                                Stock
+                            </label>
+
+                            <input type="number"
+                                   id="medicamentoStock"
+                                   class="form-control"
+                                   min="0"
+                                   step="1"
+                                   required>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <label for="medicamentoCategoria" class="form-label">
+                                Categoría
+                            </label>
+                            <select id="medicamentoCategoria" class="form-select">
+                                <option value="">Sin categoría</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="medicamentoActivo" class="form-label">
+                                Estado
+                            </label>
+                            <select id="medicamentoActivo" class="form-select">
+                                <option value="true">Activo</option>
+                                <option value="false">Inactivo</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="medicamentoImagen" class="form-label">
+                                URL de imagen
+                            </label>
+                            <input id="medicamentoImagen"
+                                   type="url"
+                                   class="form-control"
+                                   maxlength="500"
+                                   placeholder="https://ejemplo.com/medicamento.jpg">
+
+                            <div class="form-text">
+                                Introduce una URL pública de imagen.
+                                No se sube un archivo al servidor.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <img id="vistaPreviaMedicamento"
+                                 class="vista-previa d-none"
+                                 alt="Vista previa del medicamento">
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+
+                    <button type="submit"
+                            id="guardarMedicamento"
+                            class="btn btn-primary">
+                        Guardar medicamento
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL PRODUCTO -->
+<div class="modal fade" id="modalProducto"
+     tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <form id="formProducto">
+                <div class="modal-header">
+                    <h5 id="tituloModalProducto" class="modal-title">
+                        Nuevo producto
+                    </h5>
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="productoId">
+
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label for="productoNombre" class="form-label">
+                                Nombre del producto
+                            </label>
+                            <input id="productoNombre" class="form-control"
+                                   maxlength="150" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="productoCategoria" class="form-label">
+                                Categoría
+                            </label>
+                            <select id="productoCategoria"
+                                    class="form-select" required>
+                                <option value="">Seleccionar</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="productoDescripcion" class="form-label">
+                                Descripción
+                            </label>
+                            <textarea id="productoDescripcion"
+                                      class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="productoPrecio" class="form-label">
+                                Precio (S/)
+                            </label>
+                            <input id="productoPrecio" type="number"
+                                   min="0.01" step="0.01"
+                                   class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="productoStock" class="form-label">
+                                Stock
+                            </label>
+                            <input id="productoStock" type="number"
+                                   min="0" step="1"
+                                   class="form-control" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="productoImagen" class="form-label">
+                                URL de imagen
+                            </label>
+                            <input id="productoImagen" type="url"
+                                   class="form-control"
+                                   placeholder="https://ejemplo.com/producto.jpg">
+                            <div class="form-text">
+                                Por ahora se registra una URL; no se sube
+                                un archivo al servidor.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <img id="vistaPreviaProducto"
+                                 class="vista-previa d-none"
+                                 alt="Vista previa del producto">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="productoActivo" class="form-label">
+                                Estado
+                            </label>
+                            <select id="productoActivo" class="form-select">
+                                <option value="true">Activo</option>
+                                <option value="false">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal">Cancelar</button>
+                    <button id="guardarProducto" type="submit"
+                            class="btn btn-primary">Guardar producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL CATEGORÍA -->
+<div class="modal fade" id="modalCategoria"
+     tabindex="-1" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <form id="formCategoria">
+
+                <div class="modal-header">
+                    <h5 id="tituloModalCategoria"
+                        class="modal-title">
+                        Nueva categoría
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Cerrar">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <p id="tipoCategoriaModal"
+                       class="text-muted small mb-3">
+                        Completa los datos de la categoría.
+                    </p>
+
+                    <label for="categoriaNombre"
+                           class="form-label">
+                        Nombre
+                    </label>
+
+                    <input id="categoriaNombre"
+                           class="form-control"
+                           maxlength="100"
+                           required>
+
+                    <label for="categoriaDescripcion"
+                           class="form-label mt-3">
+                        Descripción
+                    </label>
+
+                    <textarea id="categoriaDescripcion"
+                              class="form-control"
+                              rows="3"></textarea>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+
+                    <button id="guardarCategoria"
+                            type="submit"
+                            class="btn btn-primary">
+                        Guardar categoría
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PARA CONFIRMAR ELIMINACIÓN -->
+<div class="modal fade" id="modalEliminarCategoria"
+     tabindex="-1" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg">
+
+            <div class="modal-body text-center p-4 p-md-5">
+
+                <div class="d-inline-flex align-items-center
+                            justify-content-center rounded-circle mb-3"
+                     style="width:72px;height:72px;
+                            background:#fff1f2;color:#dc3545;">
+                    <i class="bi bi-trash3 fs-2"></i>
+                </div>
+
+                <h4 class="fw-bold mb-3">
+                    ¿Eliminar categoría?
+                </h4>
+
+                <p class="text-muted mb-2">
+                    Estás a punto de eliminar la categoría
+                    <strong id="nombreCategoriaEliminar"
+                            class="text-dark"></strong>.
+                </p>
+
+                <p class="small text-muted mb-4">
+                    Esta acción no se puede deshacer.
+                </p>
+
+                <div class="d-flex gap-2">
+                    <button type="button"
+                            class="btn btn-outline-secondary
+                                   rounded-3 flex-fill py-2"
+                            data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+
+                    <button type="button"
+                            id="confirmarEliminarCategoria"
+                            class="btn btn-danger rounded-3
+                                   flex-fill py-2">
+                        <i class="bi bi-trash3 me-1"></i>
+                        Sí, eliminar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CONFIRMACIÓN DE ELIMINACIÓN DE MEDICAMENTO -->
+<div class="modal fade"
+     id="modalEliminarMedicamento"
+     tabindex="-1"
+     aria-labelledby="tituloEliminarMedicamento"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg">
+
+            <div class="modal-body text-center p-4 p-md-5">
+
+                <div class="d-inline-flex align-items-center
+                            justify-content-center rounded-circle mb-3"
+                     style="width:76px;height:76px;
+                            background:#fff1f2;color:#dc3545;">
+                    <i class="bi bi-trash3 fs-2"></i>
+                </div>
+
+                <h4 id="tituloEliminarMedicamento"
+                    class="fw-bold mb-3">
+                    ¿Eliminar medicamento?
+                </h4>
+
+                <p class="text-muted mb-2">
+                    Estás a punto de eliminar el medicamento
+                </p>
+
+                <p id="nombreMedicamentoEliminar"
+                   class="fw-bold fs-5 mb-3"></p>
+
+                <p class="small text-muted mb-4">
+                    Esta acción no se puede deshacer.
+                </p>
+
+                <div class="d-flex gap-2">
+
+                    <button type="button"
+                            class="btn btn-outline-secondary
+                                   rounded-3 flex-fill py-2"
+                            data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+
+                    <button type="button"
+                            id="confirmarEliminarMedicamento"
+                            class="btn btn-danger rounded-3
+                                   flex-fill py-2">
+                        <i class="bi bi-trash3 me-1"></i>
+                        Sí, eliminar
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL PARA DESACTIVAR PRODUCTO -->
+<div class="modal fade"
+     id="modalDesactivarProducto"
+     tabindex="-1"
+     aria-labelledby="tituloDesactivarProducto"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg">
+
+            <div class="modal-body text-center p-4 p-md-5">
+
+                <!-- ICONO -->
+                <div class="d-inline-flex align-items-center
+                            justify-content-center rounded-circle mb-3"
+                     style="width:76px;height:76px;
+                            background:#fff4e5;color:#d97706;">
+
+                    <i class="bi bi-box-seam fs-2"></i>
+                </div>
+
+                <!-- TÍTULO -->
+                <h4 id="tituloDesactivarProducto"
+                    class="fw-bold mb-3">
+                    ¿Desactivar producto?
+                </h4>
+
+                <!-- NOMBRE DEL PRODUCTO -->
+                <p class="text-muted mb-2">
+                    Estás a punto de desactivar el producto
+                </p>
+
+                <p id="nombreProductoDesactivar"
+                   class="fw-bold fs-5 mb-3"></p>
+
+                <!-- ADVERTENCIA -->
+                <p class="small text-muted mb-4">
+                    El producto dejará de estar disponible para
+                    la venta, pero permanecerá registrado
+                    en el sistema.
+                </p>
+
+                <!-- BOTONES -->
+                <div class="d-flex gap-2">
+
+                    <button type="button"
+                            class="btn btn-outline-secondary
+                                   rounded-3 flex-fill py-2"
+                            data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+
+                    <button type="button"
+                            id="confirmarDesactivarProducto"
+                            class="btn btn-warning rounded-3
+                                   flex-fill py-2 fw-semibold">
+                        <i class="bi bi-box-seam me-1"></i>
+                        Sí, desactivar
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL CONFIRMAR PREPARACIÓN DE PEDIDO -->
+<div class="modal fade"
+     id="modalPrepararPedido"
+     tabindex="-1"
+     aria-labelledby="tituloModalPrepararPedido"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg">
+
+            <div class="modal-header border-0 px-4 pt-4 pb-2">
+                <div class="d-flex align-items-center gap-3">
+
+                    <div class="rounded-circle d-flex
+                                align-items-center justify-content-center"
+                         style="width: 48px;
+                                height: 48px;
+                                background: #e7f5f1;
+                                color: #087f72;">
+                        <i class="bi bi-box-seam fs-4"></i>
+                    </div>
+
+                    <div>
+                        <h5 class="modal-title fw-bold mb-1"
+                            id="tituloModalPrepararPedido">
+                            Preparar pedido
+                        </h5>
+
+                        <small class="text-muted">
+                            Confirmación de preparación
+                        </small>
+                    </div>
+                </div>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Cerrar"></button>
+            </div>
+
+            <div class="modal-body px-4 py-3">
+                <p class="mb-2">
+                    ¿Deseas comenzar la preparación del
+                    <strong id="numeroPedidoPreparar"></strong>?
+                </p>
+
+                <div class="rounded-3 p-3"
+                     style="background: #f2f8f6;">
+                    <div class="d-flex gap-2 align-items-start">
+                        <i class="bi bi-info-circle text-success"></i>
+
+                        <small class="text-secondary">
+                            El pedido cambiará al estado
+                            <strong>PREPARANDO</strong>.
+                            Podrás continuar con el proceso
+                            de atención desde el panel.
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer border-0 px-4 pb-4 pt-2">
+                <button type="button"
+                        class="btn btn-outline-secondary rounded-3 px-4"
+                        data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+
+                <button type="button"
+                        id="confirmarPrepararPedido"
+                        class="btn rounded-3 px-4 text-white"
+                        style="background: #087f72;">
+                    <i class="bi bi-check-circle me-2"></i>
+                    Comenzar preparación
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/productos-admin.js"></script>
+<script src="/js/pedidos-admin.js"></script>
+<script src="/js/navegacion-tienda.js"></script>
+<script src="/js/medicamentos-tienda.js"></script>
+
+</body>
+</html>

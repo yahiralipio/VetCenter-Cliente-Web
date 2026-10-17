@@ -1,0 +1,162 @@
+
+/* ==========================================
+   VETCENTER - TIENDA ADMINISTRATIVA
+   ========================================== */
+
+.tienda-sidebar {
+    z-index: 10;
+}
+
+.tienda-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .12);
+}
+
+.tienda-main {
+    max-width: 1700px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.tienda-main .section-title {
+    margin-bottom: 0;
+}
+
+.tienda-main .section-title i {
+    color: var(--primary);
+}
+
+.tienda-main .stat-card {
+    min-height: 155px;
+    transition: transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.tienda-main .stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(20, 55, 60, .08);
+}
+
+.tienda-main .table {
+    margin-bottom: 0;
+}
+
+.tienda-main .table th {
+    background: #f7faf9;
+    padding: 15px;
+    white-space: nowrap;
+}
+
+.tienda-main .table td {
+    padding: 14px;
+    vertical-align: middle;
+    font-size: 13px;
+}
+
+.tienda-main .table tbody tr:hover {
+    background: #f9fcfb;
+}
+
+.tienda-main .table td strong {
+    display: block;
+    font-size: 14px;
+}
+
+.tienda-main .table td .small {
+    max-width: 260px;
+    overflow-wrap: anywhere;
+}
+
+.producto-miniatura {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    background: #f5f8fa;
+    border: 1px solid #e5edef;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+.vista-previa {
+    display: block;
+    max-width: 180px;
+    max-height: 160px;
+    object-fit: contain;
+    border: 1px solid #e5edef;
+    border-radius: 12px;
+    padding: 10px;
+    background: #fff;
+}
+
+.tienda-main .badge {
+    font-size: 12px;
+    padding: 8px 11px;
+    font-weight: 600;
+}
+
+.tienda-main .btn-sm {
+    border-radius: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+#mensajeTienda {
+    position: relative;
+    border-radius: 12px;
+}
+
+#modalProducto .modal-content,
+#modalCategoria .modal-content {
+    border: 0;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+#modalProducto .modal-header,
+#modalCategoria .modal-header {
+    background: #f7faf9;
+    padding: 20px 24px;
+}
+
+#modalProducto .modal-body,
+#modalCategoria .modal-body {
+    padding: 24px;
+}
+
+#modalProducto .modal-footer,
+#modalCategoria .modal-footer {
+    padding: 16px 24px;
+}
+
+@media (max-width: 768px) {
+    .tienda-main {
+        padding: 20px;
+    }
+
+    .tienda-main .stat-card {
+        min-height: 130px;
+    }
+
+    .producto-miniatura {
+        width: 50px;
+        height: 50px;
+    }
+
+    .tienda-main .table {
+        min-width: 850px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tienda-main {
+        padding: 15px;
+    }
+
+    #modalProducto .modal-body,
+    #modalCategoria .modal-body {
+        padding: 16px;
+    }
+}

@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Administración | VetCenter</title>
+
+    <!-- Bootstrap 5.3 -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+            rel="stylesheet">
+
+    <!-- Estilos VetCenter -->
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <link rel="stylesheet" href="/css/calendario-admin.css?v=3">
+
+    <style>
+        /* Estilos específicos del panel administrativo */
+
+        .admin-sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-brand-icon {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: rgba(255,255,255,.12);
+            color: #a5f3df;
+            font-size: 23px;
+        }
+
+        .admin-brand-icon .vetcenter-logo-sidebar {
+            display: block;
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .admin-brand-name {
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: -.5px;
+        }
+
+        .admin-nav-label {
+            color: #92aeb4;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin: 6px 12px;
+        }
+
+        .admin-sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-sidebar-nav a i {
+            width: 20px;
+            font-size: 18px;
+        }
+
+        .admin-sidebar-nav a.active {
+            background: #1d4650;
+            color: #fff;
+        }
+
+        .admin-page-subtitle {
+            color: #71818a;
+            font-size: 14px;
+        }
+
+        .admin-stat-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 155px;
+            transition: transform .2s ease,
+            box-shadow .2s ease;
+        }
+
+        .admin-stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(20,55,60,.08);
+        }
+
+        .admin-stat-icon {
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: #e9f7f2;
+            color: #087f72;
+            font-size: 21px;
+        }
+
+        .admin-stat-icon.blue {
+            background: #eaf2ff;
+            color: #3874bd;
+        }
+
+        .admin-stat-icon.amber {
+            background: #fff4e3;
+            color: #c48b29;
+        }
+
+        .admin-stat-icon.purple {
+            background: #f1edff;
+            color: #8064c8;
+        }
+
+        .admin-section-heading {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .admin-section-heading > i {
+            color: #087f72;
+            font-size: 22px;
+        }
+
+        .admin-table-card {
+            overflow: hidden;
+        }
+
+        .admin-table-card .table {
+            margin-bottom: 0;
+            white-space: nowrap;
+        }
+
+        .admin-table-card thead th {
+            background: #f7faf9;
+            padding: 15px 16px;
+            border-bottom: 1px solid #e5edef;
+        }
+
+        .admin-table-card tbody td {
+            padding: 15px 16px;
+            border-color: #edf2f3;
+            font-size: 13px;
+        }
+
+        .admin-table-card tbody tr:hover {
+            background: #f9fcfb;
+        }
+
+        .admin-table-card .table-responsive {
+            border-radius: 0;
+        }
+
+        .admin-modal-header {
+            background: #f7faf9;
+            border-bottom: 1px solid #e5edef;
+        }
+
+        .admin-modal-icon {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: #e9f7f2;
+            color: #087f72;
+            font-size: 20px;
+        }
+
+        .admin-welcome-icon {
+            font-size: 82px;
+            opacity: .22;
+        }
+
+        @media (max-width: 768px) {
+            .admin-stat-card {
+                min-height: 135px;
+            }
+
+            .admin-welcome-icon {
+                display: none;
+            }
+
+            .admin-table-card {
+                padding: 0;
+            }
+
+            .admin-section-heading h2 {
+                font-size: 19px;
+            }
+        }
+    </style>
+</head>
+
+<body class="dashboard-body">
+
+<div class="dashboard-layout">
+
+    <!-- ======================================
+         BARRA LATERAL
+         ====================================== -->
+
+    <aside class="sidebar">
+
+        <div class="admin-sidebar-brand">
+
+            <div class="admin-brand-icon">
+                <img
+                src="/images/Logo_VetCenter.png"
+                alt="Logo VetCenter"
+                class="vetcenter-logo-sidebar"
+                >
+            </div>
+
+            <div>
+                <div class="admin-brand-name">
+                    VetCenter
+                </div>
+
+                <div class="small text-white-50">
+                    Administración
+                </div>
+            </div>
+
+        </div>
+
+        <div class="admin-nav-label">
+            Menú principal
+        </div>
+
+        <nav class="sidebar-nav admin-sidebar-nav"
+             aria-label="Navegación administrativa">
+
+            <a href="#inicio" class="active">
+                <i class="bi bi-grid-1x2"></i>
+                <span>Inicio</span>
+            </a>
+
+            <a href="#clientes">
+                <i class="bi bi-people"></i>
+                <span>Clientes</span>
+            </a>
+
+            <a href="#mascotas">
+                <i class="bi bi-heart"></i>
+                <span>Mascotas</span>
+            </a>
+
+
+            <a href="/tienda-admin.html">
+                <i class="bi bi-shop"></i>
+                <span>Tienda virtual</span>
+            </a>
+
+            <a href="#calendario-citas">
+                <i class="bi bi-calendar3"></i>
+                <span>Calendario de citas</span>
+            </a>
+
+            <a href="#citas">
+                <i class="bi bi-clipboard-check"></i>
+                <span>Gestión de citas</span>
+            </a>
+
+
+        </nav>
+
+        <div class="mt-auto">
+
+            <div class="border-top border-secondary
+                        border-opacity-25 pt-3">
+
+                <button
+                        type="button"
+                        id="logoutButton"
+                        class="btn btn-outline-light w-100">
+
+                    <i class="bi bi-box-arrow-right me-2"></i>
+                    Cerrar sesión
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+    <!-- ======================================
+         CONTENIDO PRINCIPAL
+         ====================================== -->
+
+    <main class="dashboard-main">
+
+        <!-- ENCABEZADO -->
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <p class="admin-page-subtitle mb-2">
+                    <i class="bi bi-house-door me-1"></i>
+                    VetCenter / Administración
+                </p>
+
+                <h1 id="bienvenida">
+                    Panel de administración
+                </h1>
+
+                <p class="admin-page-subtitle mt-2 mb-0">
+                    Gestiona las operaciones de tu
+                    centro veterinario.
+                </p>
+
+            </div>
+
+            <div class="user-avatar"
+                 aria-label="Administrador">
+
+                <i class="bi bi-person-badge"></i>
+
+            </div>
+
+        </header>
+
+        <!-- MENSAJES -->
+
+        <div
+                id="mensaje"
+                class="alert d-none"
+                role="alert"
+                aria-live="polite">
+        </div>
+
+        <!-- ==================================
+             INICIO
+             ================================== -->
+
+        <section id="inicio" class="mb-5">
+
+            <div class="welcome-banner">
+
+                <div>
+
+                    <div class="mb-3">
+
+                        <span class="badge
+                                     bg-white
+                                     text-success
+                                     rounded-pill
+                                     px-3 py-2">
+
+                            <i class="bi bi-stars me-1"></i>
+                            Panel de control
+
+                        </span>
+
+                    </div>
+
+                    <h2>
+                        Bienvenido al centro de control
+                    </h2>
+
+                    <p class="mb-0">
+                        Consulta y supervisa clientes,
+                        mascotas, medicamentos y citas
+                        veterinarias desde un solo lugar.
+                    </p>
+
+                </div>
+
+                <div class="admin-welcome-icon"
+                     aria-hidden="true">
+
+                    <i class="bi bi-heart-pulse"></i>
+
+                </div>
+
+            </div>
+
+            <!-- ESTADÍSTICAS -->
+
+            <div class="row g-3 mt-3">
+
+                <!-- CLIENTES -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <div class="stat-card admin-stat-card">
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-center">
+
+                            <span>Clientes</span>
+
+                            <div class="admin-stat-icon">
+                                <i class="bi bi-people"></i>
+                            </div>
+
+                        </div>
+
+                        <strong id="totalClientes">—</strong>
+
+                        <small class="text-muted">
+                            Clientes registrados
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <!-- MASCOTAS -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <div class="stat-card admin-stat-card">
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-center">
+
+                            <span>Mascotas</span>
+
+                            <div class="admin-stat-icon blue">
+                                <i class="bi bi-heart"></i>
+                            </div>
+
+                        </div>
+
+                        <strong id="totalMascotas">—</strong>
+
+                        <small class="text-muted">
+                            Mascotas registradas
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <!-- MEDICAMENTOS -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <div class="stat-card admin-stat-card">
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-center">
+
+                            <span>Medicamentos</span>
+
+                            <div class="admin-stat-icon amber">
+                                <i class="bi bi-capsule"></i>
+                            </div>
+
+                        </div>
+
+                        <strong id="totalMedicamentos">—</strong>
+
+                        <small class="text-muted">
+                            Productos del inventario
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <!-- CITAS -->
+
+                <div class="col-md-6 col-xl-3">
+
+                    <div class="stat-card admin-stat-card">
+
+                        <div class="d-flex
+                                    justify-content-between
+                                    align-items-center">
+
+                            <span>Citas</span>
+
+                            <div class="admin-stat-icon purple">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+
+                        </div>
+
+                        <strong id="totalCitas">—</strong>
+
+                        <small class="text-muted">
+                            Citas veterinarias
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ==================================
+             CLIENTES
+             ================================== -->
+
+        <section id="clientes" class="mb-5">
+
+            <div class="d-flex
+                        justify-content-between
+                        align-items-center
+                        flex-wrap gap-3 mb-3">
+
+                <div class="admin-section-heading">
+
+                    <i class="bi bi-people"></i>
+
+                    <h2 class="section-title mb-0">
+                        Gestión de clientes
+                    </h2>
+
+                </div>
+
+            </div>
+
+            <div class="content-card admin-table-card">
+
+                <div class="d-flex
+                            justify-content-between
+                            align-items-center
+                            flex-wrap gap-2 mb-3">
+
+                    <div>
+
+                        <h3 class="h6 fw-bold mb-1">
+                            Clientes registrados
+                        </h3>
+
+                        <p class="text-muted small mb-0">
+                            Información de los clientes
+                            de VetCenter.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BUSCADOR Y ACCIONES DE CLIENTES -->
+                <div class="row g-3 align-items-end mb-4">
+
+                    <!-- BUSCAR CLIENTE -->
+                    <div class="col-12 col-lg-7">
+                        <label for="filtroClientes"
+                               class="form-label fw-semibold">
+                            Buscar cliente
+                        </label>
+
+                        <div class="input-group">
+            <span class="input-group-text">
+                <i class="bi bi-search"></i>
+            </span>
+
+                            <input type="search"
+                                   id="filtroClientes"
+                                   class="form-control"
+                                   placeholder="Buscar por nombre, apellido o DNI..."
+                                   autocomplete="off">
+                        </div>
+                    </div>
+
+                    <!-- LIMPIAR -->
+                    <div class="col-12 col-sm-6 col-lg-2">
+                        <button type="button"
+                                id="limpiarFiltroClientes"
+                                class="btn btn-outline-secondary w-100">
+                            <i class="bi bi-x-circle me-1"></i>
+                            Limpiar
+                        </button>
+                    </div>
+
+                    <!-- NUEVO CLIENTE -->
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <button type="button"
+                                id="nuevoClienteButton"
+                                class="btn btn-primary w-100">
+                            <i class="bi bi-person-plus me-2"></i>
+                            Nuevo cliente
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="d-flex justify-content-end mb-3">
+    <span id="resultadoFiltroClientes"
+          class="text-muted small"
+          aria-live="polite"></span>
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table class="table align-middle">
+
+
+                        <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">DNI</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                        </thead>
+
+
+                        <tbody id="tablaClientes"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ==================================
+             MASCOTAS
+             ================================== -->
+
+        <section id="mascotas" class="mb-5">
+
+            <div class="admin-section-heading mb-3">
+
+                <i class="bi bi-heart"></i>
+
+                <h2 class="section-title mb-0">
+                    Gestión de mascotas
+                </h2>
+
+            </div>
+
+            <div class="content-card admin-table-card">
+
+                <div class="mb-3">
+
+                    <h3 class="h6 fw-bold mb-1">
+                        Mascotas registradas
+                    </h3>
+
+                    <p class="text-muted small mb-0">
+                        Consulta los datos de las mascotas
+                        asociadas a tus clientes.
+                    </p>
+
+                </div>
+
+
+                <!-- BUSCADOR DE MASCOTAS -->
+                <div class="row g-3 align-items-end mb-4">
+
+                    <div class="col-12 col-md-8 col-lg-6">
+                        <label for="filtroMascotas"
+                               class="form-label fw-semibold">
+                            Buscar mascota
+                        </label>
+
+                        <div class="input-group">
+            <span class="input-group-text">
+                <i class="bi bi-search"></i>
+            </span>
+
+                            <input type="search"
+                                   id="filtroMascotas"
+                                   class="form-control"
+                                   placeholder="Nombre, especie o dueño..."
+                                   autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-2">
+                        <button type="button"
+                                id="limpiarFiltroMascotas"
+                                class="btn btn-outline-secondary w-100">
+                            <i class="bi bi-x-circle me-1"></i>
+                            Limpiar
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="d-flex justify-content-end mb-3">
+    <span id="resultadoFiltroMascotas"
+          class="text-muted small"
+          aria-live="polite"></span>
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table align-middle">
+
+                        <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Especie</th>
+                            <th scope="col">Raza o descripción</th>
+                            <th scope="col">Sexo</th>
+                            <th scope="col">Dueño</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="tablaMascotas"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ==================================
+             CALENDARIO DE CITAS
+             ================================== -->
+
+        <section id="calendario-citas" class="mb-5">
+
+            <div class="admin-section-heading mb-3">
+                <i class="bi bi-calendar3"></i>
+
+                <h2 class="section-title mb-0">
+                    Calendario de citas
+                </h2>
+            </div>
+
+            <div class="content-card admin-table-card">
+
+                <div class="border rounded-4 p-3 p-md-4"
+                     id="calendarioCitasPanel">
+
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+
+                        <div>
+                            <h3 class="h6 fw-bold mb-1">
+                                Calendario administrativo
+                            </h3>
+
+                            <p class="text-muted small mb-0">
+                                Visualiza las citas veterinarias por día, semana o mes.
+                            </p>
+                        </div>
+
+                        <div class="btn-group"
+                             role="group"
+                             aria-label="Vista del calendario">
+
+                            <button type="button"
+                                    id="calendarioVistaDia"
+                                    class="btn btn-outline-primary">
+                                Día
+                            </button>
+
+                            <button type="button"
+                                    id="calendarioVistaSemana"
+                                    class="btn btn-outline-primary">
+                                Semana
+                            </button>
+
+                            <button type="button"
+                                    id="calendarioVistaMes"
+                                    class="btn btn-primary"
+                                    aria-pressed="true">
+                                Mes
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <!-- NAVEGACIÓN DEL CALENDARIO -->
+
+                    <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+
+                        <button type="button"
+                                id="calendarioAnterior"
+                                class="btn btn-outline-secondary"
+                                aria-label="Periodo anterior">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+
+                        <div class="text-center">
+
+                            <h4 id="calendarioTitulo"
+                                class="h6 fw-bold mb-0">
+                                Calendario de citas
+                            </h4>
+
+                            <button type="button"
+                                    id="calendarioHoy"
+                                    class="btn btn-link btn-sm text-decoration-none">
+                                Hoy
+                            </button>
+
+                        </div>
+
+                        <button type="button"
+                                id="calendarioSiguiente"
+                                class="btn btn-outline-secondary"
+                                aria-label="Periodo siguiente">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+
+                    </div>
+
+                    <!-- CONTENEDOR DEL CALENDARIO -->
+
+                    <div id="calendarioCitas"
+                         aria-live="polite">
+
+                        <p class="text-muted small text-center py-4 mb-0">
+                            Preparando calendario de citas...
+                        </p>
+
+                    </div>
+
+                    <!-- LEYENDA DE ESTADOS -->
+
+                    <div class="d-flex flex-wrap gap-3 mt-3 small">
+
+                <span>
+                    <i class="bi bi-circle-fill text-warning me-1"></i>
+                    Pendiente
+                </span>
+
+                        <span>
+                    <i class="bi bi-circle-fill text-primary me-1"></i>
+                    Confirmada
+                </span>
+
+                        <span>
+                    <i class="bi bi-circle-fill text-success me-1"></i>
+                    Atendida
+                </span>
+
+                        <span>
+                    <i class="bi bi-circle-fill text-danger me-1"></i>
+                    Cancelada
+                </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================
+             GESTIÓN DE CITAS
+             ================================== -->
+
+        <section id="citas" class="mb-5">
+
+            <div class="admin-section-heading mb-3">
+                <i class="bi bi-clipboard-check"></i>
+
+                <h2 class="section-title mb-0">
+                    Gestión de citas
+                </h2>
+            </div>
+
+            <div class="content-card admin-table-card">
+
+                <div class="mb-4">
+
+                    <h3 class="h6 fw-bold mb-1">
+                        Control de citas
+                    </h3>
+
+                    <p class="text-muted small mb-0">
+                        Consulta, busca y administra las citas veterinarias registradas.
+                    </p>
+
+                </div>
+
+                <!-- PESTAÑAS DE GESTIÓN DE CITAS -->
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+
+                    <div class="btn-group" role="group" aria-label="Vistas de citas">
+
+                        <button type="button"
+                                id="vistaCitasPendientes"
+                                class="btn btn-primary"
+                                aria-pressed="true">
+                            Pendientes
+                        </button>
+
+                        <button type="button"
+                                id="vistaCitasTodas"
+                                class="btn btn-outline-primary"
+                                aria-pressed="false">
+                            Todas
+                        </button>
+
+                        <button type="button"
+                                id="vistaCitasHistorial"
+                                class="btn btn-outline-primary"
+                                aria-pressed="false">
+                            Historial
+                        </button>
+
+                    </div>
+
+                    <!-- ORDENAMIENTO DE CITAS -->
+                    <div class="d-flex align-items-center gap-2">
+                        <label for="ordenCitas"
+                               class="small fw-semibold text-muted mb-0">
+                            Ordenar por:
+                        </label>
+
+                        <select id="ordenCitas"
+                                class="form-select form-select-sm"
+                                style="width: 190px;">
+                            <option value="PROXIMA">
+                                Próxima cita
+                            </option>
+                            <option value="RECIENTE">
+                                Registro más reciente
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <!-- RESUMEN DE CITAS -->
+                <div class="row g-3 mb-4">
+
+                    <div class="col-md-4">
+                        <div class="stat-card p-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <i class="bi bi-hourglass-split fs-3 text-warning"></i>
+                                <div>
+                                    <div class="text-muted small">Pendientes</div>
+                                    <h3 id="citasPendientesTotal"
+                                        class="fw-bold mb-0">0</h3>
+                                    <small class="text-muted">Por revisar</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="stat-card p-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <i class="bi bi-calendar-check fs-3 text-success"></i>
+                                <div>
+                                    <div class="text-muted small">Confirmadas</div>
+                                    <h3 id="citasConfirmadasTotal"
+                                        class="fw-bold mb-0">0</h3>
+                                    <small class="text-muted">Programadas</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="stat-card p-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <i class="bi bi-calendar-day fs-3 text-primary"></i>
+                                <div>
+                                    <div class="text-muted small">Hoy</div>
+                                    <h3 id="citasHoyTotal"
+                                        class="fw-bold mb-0">0</h3>
+                                    <small class="text-muted">Citas del día</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- FILTROS DE CITAS -->
+
+                <div class="row g-3 align-items-end mb-4">
+
+                    <div class="col-12 col-md-4">
+
+                        <label for="filtroMascota"
+                               class="form-label fw-semibold">
+                            Buscar por mascota, propietario o ID de cita
+                        </label>
+
+                        <div class="input-group">
+
+                    <span class="input-group-text">
+                        <i class="bi bi-search"></i>
+                    </span>
+
+                            <input type="search"
+                                   id="filtroMascota"
+                                   class="form-control"
+                                   placeholder="Buscar por mascota, propietario o ID de cita..."
+                                   autocomplete="off">
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 col-md-3">
+
+                        <label for="filtroFecha"
+                               class="form-label fw-semibold">
+                            Fecha de la cita
+                        </label>
+
+                        <input type="date"
+                               id="filtroFecha"
+                               class="form-control">
+
+                    </div>
+
+                    <div class="col-12 col-md-3">
+
+                        <label for="filtroEstado"
+                               class="form-label fw-semibold">
+                            Estado
+                        </label>
+
+                        <select id="filtroEstado"
+                                class="form-select">
+
+                            <option value="TODOS">
+                                Todos los estados
+                            </option>
+
+                            <option value="PENDIENTE">
+                                Pendiente
+                            </option>
+
+                            <option value="CONFIRMADA">
+                                Confirmada
+                            </option>
+
+                            <option value="ATENDIDA">
+                                Atendida
+                            </option>
+
+                            <option value="CANCELADA">
+                                Cancelada
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-12 col-md-2">
+
+                        <button type="button"
+                                id="limpiarFiltrosCitas"
+                                class="btn btn-outline-secondary w-100">
+
+                            <i class="bi bi-arrow-counterclockwise me-1"></i>
+                            Limpiar
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- RESULTADOS -->
+
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+
+                    <h3 class="h6 fw-bold mb-0">
+                        Citas registradas
+                    </h3>
+
+                    <span id="resultadoFiltroCitas"
+                          class="text-muted small"
+                          aria-live="polite">
+                Mostrando todas las citas
+            </span>
+
+                </div>
+
+                <!-- TABLA DE CITAS -->
+
+                <div class="table-responsive">
+
+                    <table class="table align-middle">
+
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Mascota</th>
+                            <th scope="col">Propietario</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Motivo</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="tablaCitas"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================
+             MODAL CREAR / EDITAR CLIENTE
+             ====================================== -->
+
+<div class="modal fade"
+     id="clienteModal"
+     tabindex="-1"
+     aria-labelledby="clienteModalTitulo"
+     aria-hidden="true">
+
+    <div class="modal-dialog
+                modal-dialog-centered
+                modal-lg">
+
+        <div class="modal-content border-0 rounded-4">
+
+            <!-- ENCABEZADO -->
+
+            <div class="modal-header admin-modal-header
+                        px-4 py-3">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <div class="admin-modal-icon">
+                        <i class="bi bi-person-plus"></i>
+                    </div>
+
+                    <div>
+
+                        <h5 class="modal-title fw-bold"
+                            id="clienteModalTitulo">
+                            Registrar cliente
+                        </h5>
+
+                        <p class="text-muted small mb-0">
+                            Completa la información
+                            del cliente.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Cerrar">
+                </button>
+
+            </div>
+
+            <!-- FORMULARIO -->
+
+            <form id="clienteForm">
+
+                <div class="modal-body p-4">
+
+                    <input
+                            type="hidden"
+                            id="clienteId">
+
+                    <div class="row g-3">
+
+                        <!-- NOMBRES -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                    for="clienteNombres"
+                                    class="form-label">
+                                Nombres
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-person"></i>
+                                </span>
+
+                                <input
+                                        type="text"
+                                        id="clienteNombres"
+                                        class="form-control"
+                                        maxlength="100"
+                                        autocomplete="given-name"
+                                        required>
+
+                            </div>
+
+                        </div>
+
+                        <!-- APELLIDOS -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                    for="clienteApellidos"
+                                    class="form-label">
+                                Apellidos
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-person-vcard"></i>
+                                </span>
+
+                                <input
+                                        type="text"
+                                        id="clienteApellidos"
+                                        class="form-control"
+                                        maxlength="100"
+                                        autocomplete="family-name"
+                                        required>
+
+                            </div>
+
+                        </div>
+
+                        <!-- DNI -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                    for="clienteDni"
+                                    class="form-label">
+                                DNI
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-credit-card-2-front"></i>
+                                </span>
+
+                                <input
+                                        type="text"
+                                        id="clienteDni"
+                                        class="form-control"
+                                        minlength="8"
+                                        maxlength="8"
+                                        pattern="[0-9]{8}"
+                                        inputmode="numeric"
+                                        title="Ingresa exactamente 8 dígitos"
+                                        required>
+
+                            </div>
+
+                        </div>
+
+                        <!-- TELÉFONO -->
+
+                        <div class="col-md-6">
+
+                            <label
+                                    for="clienteTelefono"
+                                    class="form-label">
+                                Teléfono
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-telephone"></i>
+                                </span>
+
+                                <input
+                                        type="tel"
+                                        id="clienteTelefono"
+                                        class="form-control"
+                                        minlength="9"
+                                        maxlength="9"
+                                        pattern="[0-9]{9}"
+                                        inputmode="numeric"
+                                        autocomplete="tel"
+                                        title="Ingresa exactamente 9 dígitos"
+                                        required>
+
+                            </div>
+
+                        </div>
+
+                        <!-- CORREO -->
+
+                        <div class="col-12">
+
+                            <label
+                                    for="clienteCorreo"
+                                    class="form-label">
+                                Correo electrónico
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-envelope"></i>
+                                </span>
+
+                                <input
+                                        type="email"
+                                        id="clienteCorreo"
+                                        class="form-control"
+                                        maxlength="150"
+                                        placeholder="correo@ejemplo.com"
+                                        autocomplete="email"
+                                        required>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- ERRORES DEL MODAL -->
+
+                    <div
+                            id="clienteModalMensaje"
+                            class="alert alert-danger d-none mt-3"
+                            role="alert"
+                            aria-live="polite">
+                    </div>
+
+                </div>
+
+                <!-- ACCIONES -->
+
+                <div class="modal-footer px-4 py-3">
+
+                    <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal">
+
+                        Cancelar
+
+                    </button>
+
+                    <button
+                            type="submit"
+                            id="guardarClienteButton"
+                            class="btn btn-primary">
+
+                        <i class="bi bi-check-circle me-2"></i>
+                        Guardar cliente
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<!-- Lógica administrativa -->
+<script src="/js/admin.js"></script>
+
+<!-- Calendario administrativo de citas -->
+<script src="/js/calendario-admin.js?v=2"></script>
+
+</body>
+
+</html>
